@@ -91,8 +91,28 @@ vector<string> FileReader::catchDelim(const string &fullVector) {
     return strVec;
 }
 
+/**
+ * Converting a vector of strings to a vector of doubles.
+ * @param strVec The vector of strings.
+ * @return The vector of doubles.
+ */
 vector<double> FileReader::sTodVec(vector<string> strVec) {
-    return vector<double>();
+    // The new vector of doubles.
+    vector<double> numVec;
+    // Save the size of strVec.
+    unsigned int iter = strVec.size();
+    // Go over all the string representing a double in this vector.
+    for (int i = 0; i < iter; ++i) {
+        // Set the current string in strToD.
+        string strToD = strVec[i];
+        // Check it in isDot for validation.
+        strToD = serverValidations.isDot(strToD);
+        // If the string is valid to conversion, convert.
+        if(serverValidations.validD(strToD)){
+            numVec.push_back(stod(strToD));
+        }
+    }
+    return numVec;
 }
 
 

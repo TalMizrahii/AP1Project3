@@ -19,6 +19,12 @@ public:
     void validPath(const string& path);
     // Checking if the last char is space or not.
     string isLastSpace(string classification);
+
+    // A validation for a dot method.
+    string isDot(string toNum);
+
+    // Checking if the string is a valid double number.
+    bool validD(string strToD);
 };
 
 
