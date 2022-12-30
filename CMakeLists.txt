@@ -4,4 +4,5 @@ project(ex3)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(ex3
-        Server/main.cpp)
+        Server/main.cpp
+        Client/main.cpp)
