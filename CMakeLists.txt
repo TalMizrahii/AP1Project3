@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(ex3
         Server/main.cpp
+        Server/flowAndData/FileReader.cpp
+        Server/flowAndData/FileReader.h
         Client/main.cpp)
