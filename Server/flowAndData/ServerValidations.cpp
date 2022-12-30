@@ -8,11 +8,14 @@
 void ServerValidations::validPath(const string& path) {
     // Create a new stream to read from the file.
     fstream myFile;
+    // Try to open the file.
     myFile.open(path);
+    // If the file wouldn't open, print an error message and return.
     if (!myFile) {
         std::cout << "NO FILE" << endl;
         exit(-1); // Exit the program.
     }
+    // If the file opened, close it.
     myFile.close();
 }
 
@@ -43,4 +46,8 @@ string ServerValidations::isDot(string toNum) {
         return '0' + toNum;
     // Otherwise just return the number.
     return toNum;
+}
+
+bool ServerValidations::validD(string strToD) {
+    // Write here!!!!!!!!!!!!!!!!!!!!!
 }

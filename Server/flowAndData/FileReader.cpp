@@ -109,10 +109,9 @@ vector<double> FileReader::sTodVec(vector<string> strVec) {
         strToD = serverValidations.isDot(strToD);
         // If the string is valid to conversion, convert.
         if(serverValidations.validD(strToD)){
+            // Put the number in the double's vector.
             numVec.push_back(stod(strToD));
         }
     }
     return numVec;
 }
-
-
