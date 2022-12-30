@@ -8,7 +8,7 @@
 #include <sstream>
 #include <string>
 #include "RelativeVector.h"
-#include "Validations.h"
+#include "ServerValidations.h"
 
 using namespace std;
 
@@ -25,6 +25,8 @@ public:
 
     // A reading file method.
     vector<RelativeVector *> readFile(string &path);
+
+
 
     // A validation for a dot method.
     string isDot(string fullVector);

@@ -13,4 +13,6 @@ add_executable(ex3
         Server/Distances/AbstractDistance.h
         Server/flowAndData/KnnAlgorithm.cpp
         Server/flowAndData/KnnAlgorithm.h
+        Server/flowAndData/ServerValidations.cpp
+        Server/flowAndData/ServerValidations.h
         Client/main.cpp)
