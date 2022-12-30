@@ -26,17 +26,11 @@ public:
     // A reading file method.
     vector<RelativeVector *> readFile(string &path);
 
+    // Creating a vector of strings, representing the cells in the file vector.
+    vector<string> catchDelim(const string &fullVector);
 
-
-    // A validation for a dot method.
-    string isDot(string fullVector);
-
-    // Catching the specification of the vector.
-    RelativeVector *catchDelim(const string &toNum);
-
-    // Checking if the last char is space or not.
-    string isLastSpace(string classification);
-
+private:
+    ServerValidations serverValidations;
 };
 
 #endif //EX3_FILEREADER_H

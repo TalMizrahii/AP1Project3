@@ -15,3 +15,18 @@ void ServerValidations::validPath(const string& path) {
     }
     myFile.close();
 }
+
+/**
+ * Checking if a last char is '\r'. if so, we remove it.
+ * @param classification The string to check.
+ * @return the string after the change.
+ */
+string ServerValidations::isLastSpace(string classification) {
+    // Check if the last char is equal to '\r'.
+    if (classification.back() == '\r') {
+        // If so, remove it.
+        classification.pop_back();
+    }
+    // Return the string with or without the change.
+    return classification;
+}
