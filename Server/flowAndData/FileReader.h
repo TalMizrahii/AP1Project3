@@ -35,6 +35,7 @@ public:
     vector<double> sTodVec(vector<string> strVec);
 
 private:
+    // A server validation instance to use when processing the file.
     ServerValidations serverValidations;
 };
 

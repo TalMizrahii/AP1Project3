@@ -12,7 +12,9 @@
 #include <iostream>
 
 using namespace std;
-
+/**
+ * A validation class for the server.
+ */
 class ServerValidations{
 public:
     // Check if a file is on the server using given path.
@@ -24,7 +26,7 @@ public:
     string isDot(string toNum);
 
     // Checking if the string is a valid double number.
-    bool validD(string strToD);
+    bool validD(const string& strToD);
 };
 
 

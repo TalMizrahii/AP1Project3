@@ -48,6 +48,22 @@ string ServerValidations::isDot(string toNum) {
     return toNum;
 }
 
-bool ServerValidations::validD(string strToD) {
-    // Write here!!!!!!!!!!!!!!!!!!!!!
+/**
+ * Checking if a given string is a valid double.
+ * If so, return true. Otherwise, return false.
+ * @param str The string to check.
+ * @return a boolean true if its a valid double, false otherwise.
+ */
+bool ServerValidations::validD(const string& strNumber) {
+    // Saving the string in a temporary value.
+    const string& temp = strNumber;
+    // Creating a control pointer.
+    char *end = nullptr;
+    // trying to convert the string.
+    strtod(temp.c_str(), &end);
+    // If the string is not convertable, return the original string.
+    if (end == temp.c_str() || *end != '\0') {
+        return false;
+    }
+    return true;
 }
