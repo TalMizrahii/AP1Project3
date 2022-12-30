@@ -11,8 +11,6 @@ FileReader::FileReader() = default;
  */
 FileReader::~FileReader() = default;
 
-
-
 /**
  * Reading a csv file line by line and returning a vector of RelativeVectors contain all info about the file's lines.
  * @param path The path to the file.
