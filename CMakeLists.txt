@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(ex3
         Server/main.cpp
-        Client/main.cpp)
+        Client/main.cpp Client/ClientValidation.h Client/ClientValidation.cpp)
