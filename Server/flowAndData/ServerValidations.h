@@ -18,7 +18,7 @@ using namespace std;
 class ServerValidations{
 public:
     // Check if a file is on the server using given path.
-    void validPath(const string& path);
+    bool validPath(const string& path);
     // Checking if the last char is space or not.
     string isLastSpace(string classification);
 
@@ -27,6 +27,12 @@ public:
 
     // Checking if the string is a valid double number.
     bool validD(const string& strToD);
+
+    // Checking if a sting is a number.
+    bool validI(const std::string &s);
+
+    // Check if a strung is a valid port or not.
+    bool validPortNumber(const string &port);
 };
 
 

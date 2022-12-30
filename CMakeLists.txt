@@ -15,4 +15,15 @@ add_executable(ex3
         Server/flowAndData/KnnAlgorithm.h
         Server/flowAndData/ServerValidations.cpp
         Server/flowAndData/ServerValidations.h
-        Client/main.cpp)
+        Server/Distances/Taxicab.cpp
+        Server/Distances/Taxicab.h
+        Server/Distances/Euclidean.cpp
+        Server/Distances/Euclidean.h
+        Server/Distances/Minkowski.cpp
+        Server/Distances/Minkowski.h
+        Server/Distances/Canberra.cpp
+        Server/Distances/Canberra.h
+        Server/Distances/Chebyshev.cpp
+        Server/Distances/Chebyshev.h
+
+        )
