@@ -27,12 +27,16 @@ public:
     bool isNumber(string s);
 
     // Checking if a number is in scientific notation.
-    string isScientificNotation(const basic_string<char>& str);
+    bool validD(const basic_string<char>& str);
 
     // Check validation.
     string isScientificNotationValid(string str);
 
     bool validIp(const string &ip);
+
+    bool validPortNumber(const string &port);
+
+    bool validInt(const std::string &s);
 
 
 protected:
@@ -49,6 +53,7 @@ protected:
     bool validKElements(const string &k_elements);
 
     bool validCellIpv4(const string &cell);
+
 
 };
 

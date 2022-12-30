@@ -5,6 +5,30 @@
 #include "ClientValidation.h"
 
 
+
+
+
+/**
+ * Checking if the number is can be cast to int.
+ * @param str The string to check.
+ * @return True if can be cast to int, false otherwise.
+ */
+bool ClientValidation::validInt(const std::string &s) {
+    // Check if the string in the first
+    if (s.empty() || (!isdigit(s[0])) ) {
+        return false;
+    }
+    char *p;
+    strtol(s.c_str(), &p, 10);
+
+    if(*p != 0){
+        return false;
+    }
+    return true;
+}
+
+
+
 /**
  * The function check if the input has negative sign that the user enters is in a valid format.
  *
@@ -32,20 +56,17 @@ bool ClientValidation::validNegative(string string1, unsigned long &i) {
  * @param str The string to check.
  * @return the string changed or not.
  */
-string ClientValidation::isScientificNotation(const string &str) {
+bool ClientValidation::validD(const string &str) {
     // Saving the string in a temporary value.
     string temp = str;
     // Creating a control pointer.
-    char *end;
-    // trying to convert the string.
-    double result = strtod(str.c_str(), &end);
-    // If the string is not convertable, return the original string.
+    char *end = nullptr;
+    // If the string is not convertable, return false.
     if (end == str.c_str() || *end != '\0') {
-        return temp;
+        return false;
     }
-    // If the string is convertable, return the converted version.
-    string strResult = to_string(result);
-    return strResult;
+    // If the string is convertable, return true.
+    return true;
 }
 
 /**
@@ -134,7 +155,7 @@ string ClientValidation::isScientificNotationValid(const string str) {
     // Read each data segment seperated by comma.
     while (getline(line, lastStr, ' ')) {
         // Checking if the number is in scientific notation.
-        result += isScientificNotation(lastStr) + " ";
+        result += validD(lastStr) + " ";
     }
     result.pop_back();
     return result;
@@ -159,7 +180,7 @@ bool ClientValidation::validDistance(const string &distanceSpec) {
 /**
  * Checking if the k_elements received as argument to the program is in valid format.
  * @param string k_elements (received as argument to the program).
- * @return False id k_elements invalid, true otherwise
+ * @return False id k_elements invalid, true otherwise.
  */
 bool ClientValidation::validKElements(const string &k_elements) {
     // Checking if k_elements is starting with 0.
@@ -175,6 +196,11 @@ bool ClientValidation::validKElements(const string &k_elements) {
     return true;
 }
 
+/**
+ * Checking if the ip received as argument to the program is in valid format.
+ * @param string ip address (received as argument to the program).
+ * @return False if the ip address invalid, true otherwise.
+ */
 bool ClientValidation::validIp(const string &ip) {
     // Create a new stream to go over the line.
     istringstream ip_line(ip);
@@ -190,21 +216,50 @@ bool ClientValidation::validIp(const string &ip) {
     return true;
 }
 
+/**
+ * Checking if the ip cell is in valid format.
+ * @param string ip cell.
+ * @return False if the ip cell invalid, true otherwise.
+ */
 bool ClientValidation::validCellIpv4(const string &cell) {
+    // Getting the cell length.
     unsigned long cell_length = cell.length();
+    // Cell length is at most 3.
     if (cell_length > 3){
         return false;
     }
+    // Checking if the cell composed of numbers.
     for (int i = 0; i < cell_length; i++) {
         if (!isdigit(cell[i])){
             return false;
         }
     }
+    // From string to int.
     int cell_num = stoi(cell);
+    // Checking if the cell_num is in the valid range.
     if (cell_num < 0 || cell_num > 255){
         return false;
     }
     return true;
+}
+
+
+/**
+ * Checking if the port number is in valid format.
+ * @param string port number.
+ * @return False if the port number invalid, true otherwise.
+ */
+bool ClientValidation::validPortNumber(const string &port){
+    if (validInt(port)){
+        // From string to int.
+        int port_num = stoi(port);
+        // Checking if the port is in the valid range.
+        if (port_num < 1024 || port_num > 65535){
+            return false;
+        }
+        return true;
+    }
+    return false;
 }
 
 
