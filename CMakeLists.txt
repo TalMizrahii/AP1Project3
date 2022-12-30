@@ -11,4 +11,6 @@ add_executable(ex3
         Server/flowAndData/RelativeVector.cpp
         Server/Distances/AbstractDistance.cpp
         Server/Distances/AbstractDistance.h
+        Server/flowAndData/KnnAlgorithm.cpp
+        Server/flowAndData/KnnAlgorithm.h
         Client/main.cpp)
