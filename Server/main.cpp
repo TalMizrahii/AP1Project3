@@ -139,16 +139,30 @@ void validK(const string &k) {
  * @return return 0 if the program run without issues.
  */
 int main(int args, char *argv[]) {
-    vector<string> argc_vector = extract_argc(argv);
-    // Checking if the k argument is in valid format.
-    validK(argc_vector[0]);
-    unsigned long kNeighbors = stoi(argc_vector[0]);
-    string path = argc_vector[1];
-    string distance_algorithm = argc_vector[2];
 
-    AbstractDistance *disCalc = distanceCreator(distance_algorithm);
-    FileReader fileReader;
-    vector<RelativeVector *> catalogedVec = fileReader.readFile(path);
+    // Accept arguments - path to the file and Port.
+    // Check if the port is valid.
+    // ############################################################################
+    // Create the socket and bind the port.
+    // Get the info from the client's socket.
+    // Process the Data to vector, metric, and K num.
+    // ############################################################################
+    // Create the vector<RelativeVector *> using the path and the filereader.
+    // Create the metric function.
+    //  Use classificationUserVec() and return its value.
+
+
+
+//    vector<string> argc_vector = extract_argc(argv);
+//    // Checking if the k argument is in valid format.
+//    validK(argc_vector[0]);
+//    unsigned long kNeighbors = stoi(argc_vector[0]);
+//    string path = argc_vector[1];
+//    string distance_algorithm = argc_vector[2];
+//
+//    AbstractDistance *disCalc = distanceCreator(distance_algorithm);
+//    FileReader fileReader;
+//    vector<RelativeVector *> catalogedVec = fileReader.readFile(path);
 
     while (true) {
         vector<double> vector1;
