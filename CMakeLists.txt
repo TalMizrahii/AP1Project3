@@ -4,5 +4,5 @@ project(ex3)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(ex3
-        Server/main.cpp
-        Client/main.cpp Client/ClientValidation.h Client/ClientValidation.cpp)
+        Client/main.cpp Client/ClientValidation.h Client/ClientValidation.cpp Client/UserVectorInput.h
+        Client/UserVectorInput.cpp)

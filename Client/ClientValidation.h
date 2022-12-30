@@ -29,14 +29,11 @@ public:
     // Checking if a number is in scientific notation.
     bool validD(const basic_string<char>& str);
 
-    // Check validation.
-    string isScientificNotationValid(string str);
-
     bool validIp(const string &ip);
 
     bool validPortNumber(const string &port);
 
-    bool validInt(const std::string &s);
+    bool validUnsignedInt(const std::string &s);
 
 
 protected:

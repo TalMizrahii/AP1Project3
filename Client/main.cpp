@@ -25,8 +25,8 @@ vector<string> extract_argc(char *argcArray[]) {
     // As we know the argc[0] is the program name, and by the format argc[2] is the port.
     string port = argcArray[2];
     // Checking if the port number legal.
-    if (!v.validIp(port)){
-        cout << "Illegal ip." << endl;
+    if (!v.validPortNumber(port)){
+        cout << "Illegal port." << endl;
         exit(0);
     }
     vector<string> vector;
@@ -34,9 +34,6 @@ vector<string> extract_argc(char *argcArray[]) {
     vector.push_back(port);
     return vector;
 }
-
-
-
 
 
 
@@ -50,8 +47,6 @@ int main(int args, char *argv[]) {
     vector<string> argc_vector = extract_argc(argv);
     string ip_address = argc_vector[1];
     string port_number = argc_vector[2];
-
-
 
     return 0;
 }
