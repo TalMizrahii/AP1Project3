@@ -29,6 +29,11 @@ public:
     // Creating a vector of strings, representing the cells in the file vector.
     vector<string> catchDelim(const string &fullVector);
 
+    // Creating a relative vector from the strVec.
+    RelativeVector *creatRelativeVector(vector<string> strVec);
+
+    vector<double> sTodVec(vector<string> strVec);
+
 private:
     ServerValidations serverValidations;
 };

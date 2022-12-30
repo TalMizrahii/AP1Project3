@@ -38,9 +38,8 @@ vector<RelativeVector *> FileReader::readFile(string &path) {
         }
         // Send the line to be processed, and receive back a new relative vector who represent the line.
         vector<string> strVec = catchDelim(fullVector);
-        string classification  = strVec.back();
-        strVec.pop_back();
-        classification = serverValidations.isLastSpace(classification);
+        // Creating the relative vector.
+        RelativeVector *dataVec = creatRelativeVector(strVec);
         // Set the new relative vector in the vector of relative vectors.
         fileVec.push_back(dataVec);
     }
@@ -50,8 +49,31 @@ vector<RelativeVector *> FileReader::readFile(string &path) {
 }
 
 /**
+ * Creating a new relative vector on the heap and
+ * setting it the classification and values vector from a string vector.
+ * @param strVec A vector of strings, representing the cells in the file vector.
+ * @return A new relative vector containing the data from the string vector.
+ */
+RelativeVector *FileReader::creatRelativeVector(vector<string> strVec) {
+    // Get the classification.
+    string classification  = strVec.back();
+    // Remove the classification from strVec, reminding only the numbers of the vector.
+    strVec.pop_back();
+    // Check the classification for last \r.
+    classification = serverValidations.isLastSpace(classification);
+    // Create a new relative vector named dataVec.
+    auto *dataVec = new RelativeVector;
+    // Set the classification to the dataVec.
+    dataVec->setClassification(classification);
+    // Convert the string vector to a doubles vector.
+    vector<double> numVec = sTodVec(strVec);
+    dataVec->setValuesVector(numVec);
+    return dataVec;
+}
+
+/**
  * A method who catch each cell in the line of a cvs file
- * and returns a RelativeVector represent the data about the line.
+ * and returns a vector of strings, representing the cells in the file vector.
  * @param fullVector the line from the file as a string.
  * @return A vector of strings, representing the cells in the file vector.
  */
@@ -68,3 +90,9 @@ vector<string> FileReader::catchDelim(const string &fullVector) {
     }
     return strVec;
 }
+
+vector<double> FileReader::sTodVec(vector<string> strVec) {
+    return vector<double>();
+}
+
+
