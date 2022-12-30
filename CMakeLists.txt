@@ -7,4 +7,8 @@ add_executable(ex3
         Server/main.cpp
         Server/flowAndData/FileReader.cpp
         Server/flowAndData/FileReader.h
+        Server/flowAndData/RelativeVector.h
+        Server/flowAndData/RelativeVector.cpp
+        Server/Distances/AbstractDistance.cpp
+        Server/Distances/AbstractDistance.h
         Client/main.cpp)
