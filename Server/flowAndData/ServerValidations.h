@@ -29,10 +29,13 @@ public:
     bool validD(const string& strToD);
 
     // Checking if a sting is a number.
-    bool validI(const std::string &s);
+    bool validI(const std::string &strNum);
 
     // Check if a strung is a valid port or not.
     bool validPortNumber(const string &port);
+
+    // Check if the metric is valid.
+    bool validMetric(string metric);
 };
 
 

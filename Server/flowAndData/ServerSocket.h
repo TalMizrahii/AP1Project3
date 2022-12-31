@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "DataProcessing.h"
+#include "Distances"
 
 using namespace std;
 

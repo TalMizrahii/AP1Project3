@@ -205,6 +205,12 @@ string ServerSocket::processRequest(const string& buffer) {
     string metric = strVec.back();
     // remove it from the vector.
     strVec.pop_back();
+    if (!serverValidations.validI(kElementStr) || !serverValidations.validMetric(metric)){
+        return "invalid input";
+    }
+    // convert the kElement to int.
+    int kNum = stoi(kElementStr);
+
 
 }
 

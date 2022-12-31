@@ -105,8 +105,27 @@ bool ServerValidations::validPortNumber(const string &port) {
     // From string to int.
     int port_num = stoi(port);
     // Check if the port is in valid range.
-    if (port_num < 1024 || port_num > 65535) {
+    if (port_num < 0 || port_num > 65535) {
         return false;
     }
     return true;
 }
+
+/**
+ * Checking is a given string is a valid metric request.
+ * @param metric The string to check.
+ * @return A boolean answer to the question.
+ */
+bool ServerValidations::validMetric(string metric) {
+    // Check if the string is a valid distance.
+    if (metric == "AUC"
+        || metric == "MAN"
+        || metric == "CHB"
+        || metric == "CAN"
+        || metric == "MIN") {
+        return true;
+    }
+    // If no valid option was chosen, false.
+    return false;
+}
+
