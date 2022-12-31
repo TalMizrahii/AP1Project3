@@ -38,6 +38,9 @@ int ClientSocket::creatClientSocket() {
     // Create a new socket.
     int clientSocket = makeNewSocket();
     struct sockaddr_in sin = creatAddrInStruct();
+    if (connect(clientSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+        perror("error connecting to server");
+    }
     return clientSocket;
 }
 
@@ -84,7 +87,7 @@ bool ClientSocket::sendToServer(int sock) {
     // Getting the user request.
     string message = this->userVectorInput.userInputFlow();
     // Checking if the user want to close the connection.
-    if (message == "-1"){
+    if (message == "-1") {
         return false;
     }
     // Making the buffer ready.
@@ -133,14 +136,14 @@ string ClientSocket::receiveData(int clientSocket) {
 /**
  * Control the flow of sending and receiving data from the client.
  */
-void ClientSocket::runClient(){
+void ClientSocket::runClient() {
     // Create a new socket.
     int clientSocket = creatClientSocket();
     // We want to send a data to the server until the user want to close ot until the server close from his side.
-    while (true){
+    while (true) {
         bool flag = sendToServer(clientSocket);
         // Checking if the user want to close the socket.
-        if (!flag){
+        if (!flag) {
             cout << "The client request to close the connection to the server!" << endl;
             close(clientSocket);
             exit(0);

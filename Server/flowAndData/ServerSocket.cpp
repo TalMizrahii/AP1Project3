@@ -199,6 +199,7 @@ long ServerSocket::receiveData(int clientSocket, char *buffer) {
         // If it didn't work, raise an error.
         perror("Error receiving data.");
     }
+    cout << buffer << endl;
     return readBytes;
 }
 
