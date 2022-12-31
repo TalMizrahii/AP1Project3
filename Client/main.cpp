@@ -35,10 +35,6 @@ vector<string> extract_argc(char *argcArray[]) {
     return vector;
 }
 
-
-
-
-
 /**
  * This is the main function of the program, creating 2 vectors and checking validation.
  * @return return 0 if the program run without issues.
