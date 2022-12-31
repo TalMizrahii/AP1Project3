@@ -171,6 +171,18 @@ void ServerSocket::replyToClient(string reply, int clientSocket) {
 }
 
 /**
+ * Check if the user wants to close the socket by sending the message "-1".
+ * @param strToCheck The message to check.
+ * @return A boolean value to the question.
+ */
+bool ServerSocket::endConnectionCheck(const string &strToCheck) {
+    if (strToCheck.find("-1") != std::string::npos) {
+        return true;
+    }
+    return false;
+}
+
+/**
  * Given a client socket, accept it's data on a TCP connection.
  * @param clientSocket The client's socket.
  * @param buffer The buffer to store the reply.
@@ -278,3 +290,5 @@ AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
         return min;
     }
 }
+
+
