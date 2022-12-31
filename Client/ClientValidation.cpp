@@ -50,7 +50,10 @@ bool ClientValidation::validD(const string &str) {
  */
 bool ClientValidation::validDistance(const string &distanceSpec) {
     // Check if the string is a valid distance.
-    if (distanceSpec == "AUC" || distanceSpec == "MAN" || distanceSpec == "CHB" || distanceSpec == "CAN"
+    if (distanceSpec == "AUC"
+        || distanceSpec == "MAN"
+        || distanceSpec == "CHB"
+        || distanceSpec == "CAN"
         || distanceSpec == "MIN") {
         return true;
     }
