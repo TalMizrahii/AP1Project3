@@ -34,11 +34,13 @@ bool ClientValidation::validD(const string &str) {
     string temp = str;
     // Creating a control pointer.
     char *end = nullptr;
+    // trying to convert the string.
+    strtod(temp.c_str(), &end);
     // If the string is not convertable, return false.
-    if (end == str.c_str() || *end != '\0') {
+    if (end == temp.c_str() || *end != '\0') {
         return false;
     }
-    // If the string is convertable, return true.
+    // If it is return true.
     return true;
 }
 
