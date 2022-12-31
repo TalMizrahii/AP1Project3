@@ -28,4 +28,4 @@ add_executable(ex3
         Server/flowAndData/ServerSocket.cpp
         Server/flowAndData/ServerSocket.h
 
-        )
+        Server/flowAndData/DataProcessing.cpp Server/flowAndData/DataProcessing.h)

@@ -9,6 +9,7 @@
 # include "Distances/Canberra.h"
 # include "Distances/Chebyshev.h"
 #include "flowAndData/KnnAlgorithm.h"
+#include "flowAndData/ServerSocket.h"
 
 using namespace std;
 
@@ -53,39 +54,39 @@ AbstractDistance *distanceCreator(const string &distanceSpec) {
  * @return return 0 if the program run without issues.
  */
 int main(int args, char *argv[]) {
-
-    // ############################################################################
-    // Create the socket and bind the port.
-    // Get the info from the client's socket.
-    // Process the Data to vector, metric, and K num.
-    // ############################################################################
-
     // Creat a validation instance for the server's validation.
     ServerValidations serverValidations;
     // Set the path from the arguments.
     string path = argv[1];
-
-    string test = argv[2];
     // Check if port and path are valid. if not, return.
     if(!serverValidations.validPortNumber(argv[2]) || !serverValidations.validPath(path)){
         cout << "Port or path are not valid" << endl;
         return 0;
     }
+    // Convert the port to an int.
     int port = stoi(argv[2]);
+    // Creat a new server socket.
+    ServerSocket serverSocket(port, path);
+    // Creat a new socket number.
+    int socketNum = serverSocket.creatServerSocket();
+    // Run the server.
+    serverSocket.runServer(socketNum);
 
-    // ALL BELOW I GET FROM THE SOCKET, DELETE!!!!
-    string distance_algorithm = "MAN";
-    vector<double> vector1 = {1, 2, 3, 4};
-    int kNeighbors = 1;
-    // #############################################################################
 
 
 
-    AbstractDistance *disCalc = distanceCreator(distance_algorithm);
-    FileReader fileReader;
-    vector<RelativeVector *> catalogedVec = fileReader.readFile(path);
-    KnnAlgorithm kElement(catalogedVec, vector1, kNeighbors, disCalc);
-    cout << kElement.classificationUserVec() << endl;
+
+//    // #############################################################################
+//    // ALL BELOW I GET FROM THE SOCKET, DELETE!!!!
+//    string distance_algorithm = "MAN";
+//    vector<double> vector1 = {1, 2, 3, 4};
+//    int kNeighbors = 1;
+//    // #############################################################################
+//    AbstractDistance *disCalc = distanceCreator(distance_algorithm);
+//    FileReader fileReader;
+//    vector<RelativeVector *> catalogedVec = fileReader.readFile(path);
+//    KnnAlgorithm kElement(catalogedVec, vector1, kNeighbors, disCalc);
+//    cout << kElement.classificationUserVec() << endl;
 
     return 0;
 }

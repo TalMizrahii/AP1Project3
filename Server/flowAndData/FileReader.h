@@ -9,13 +9,14 @@
 #include <string>
 #include "RelativeVector.h"
 #include "ServerValidations.h"
+#include "DataProcessing.h"
 
 using namespace std;
 
 /**
  * A class to read from a file, process the data and return a vector of the data processed.
  */
-class FileReader {
+class FileReader : public DataProcessing {
 public:
     // A constructor.
     FileReader();
@@ -26,17 +27,13 @@ public:
     // A reading file method.
     vector<RelativeVector *> readFile(string &path);
 
-    // Creating a vector of strings, representing the cells in the file vector.
-    vector<string> catchDelim(const string &fullVector);
 
     // Creating a relative vector from the strVec.
     RelativeVector *creatRelativeVector(vector<string> strVec);
 
-    vector<double> sTodVec(vector<string> strVec);
 
-private:
-    // A server validation instance to use when processing the file.
-    ServerValidations serverValidations;
+
+
 };
 
 

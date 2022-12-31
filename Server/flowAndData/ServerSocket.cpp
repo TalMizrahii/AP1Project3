@@ -140,27 +140,27 @@ void ServerSocket::runServer(int serverSocket) {
     while (true) {
         // Accept a new client.
         int clientSocket = acceptClient(serverSocket);
+        // Creat a buffer to receive data from the client.
+        char buffer[4096];
         // Receive data from the client's socket.
-        string clientInfo = receiveData(clientSocket);
-        // Checking if the user wants to close the connection.
-        if (endConnectionCheck(clientInfo)) {
+        long readBytes = receiveData(clientSocket, buffer);
+        // Check for an empty message or if the user wants to close the connection.
+        if (readBytes == 0 || endConnectionCheck(buffer)) {
             close(clientSocket);
             continue;
         }
+        string reply = processRequest(buffer);
 
-        // Do something with the data.
-        // Send it back.
     }
 }
 
 /**
  * Given a client socket, accept it's data on a TCP connection.
  * @param clientSocket The client's socket.
- * @return The data received.
+ * @param buffer The buffer to store the reply.
+ * @return The number of bytes received in the buffer.
  */
-string ServerSocket::receiveData(int clientSocket) {
-    // Initiate a buffer and it's size.
-    char buffer[4096];
+long ServerSocket::receiveData(int clientSocket, char *buffer) {
     // Set the data that the server can accept from a connection to the buffer's size.
     int expected_data_len = sizeof(buffer);
     // Receive data from the current client.
@@ -170,11 +170,7 @@ string ServerSocket::receiveData(int clientSocket) {
         // If it didn't work, raise an error.
         perror("Error receiving data.");
     }
-        // Check for an empty message.
-    else if (readBytes == 0) {
-        // CLOSE >> ?
-    }
-    return buffer;
+    return readBytes;
 }
 
 /**
@@ -195,4 +191,19 @@ int ServerSocket::acceptClient(int serverSocket) {
         perror("Error accepting client.");
     }
     return clientSocket;
+}
+
+
+string ServerSocket::processRequest(const string& buffer) {
+    // Processing the given string to vector.
+    vector<string> strVec = catchDelim(buffer, ' ');
+    // Extract the k element as a string.
+    string kElementStr = strVec.back();
+    // remove it from the vector.
+    strVec.pop_back();
+    // Extract the metric from the vector.
+    string metric = strVec.back();
+    // remove it from the vector.
+    strVec.pop_back();
+
 }

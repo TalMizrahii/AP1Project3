@@ -11,13 +11,14 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include "DataProcessing.h"
 
 using namespace std;
 
 /**
  *
  */
-class ServerSocket {
+class ServerSocket: public DataProcessing{
 public:
 
     // A default destructor.
@@ -63,11 +64,13 @@ public:
     int acceptClient(int serverSocket);
 
     // Accepting data from the client.
-    string receiveData(int clientSocket);
+    long receiveData(int clientSocket, char *buffer);
 
     // Running the server.
     void runServer(int serverSocket);
 
+    // Processing the request of the client.
+    string processRequest(const string& buffer);
 
 
 private:
