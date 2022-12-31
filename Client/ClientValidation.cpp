@@ -1,7 +1,3 @@
-//
-// Created by yuval on 12/30/22.
-//
-
 #include "ClientValidation.h"
 
 
@@ -156,12 +152,16 @@ bool ClientValidation::checkingUserInput(vector<string> userVecCheck) {
         return false;
     }
     // Checking if the user entered only -1 to close the connection.
-    if (userVecCheck.size() == 1 && userVecCheck.back() == "-1"){
+    if (userVecCheck.size() == 1 && userVecCheck.back() == "-1") {
         return true;
     }
+    // Getting the k that the user entered.
     string kElement = userVecCheck.back();
+    // Pop the k that the user entered.
     userVecCheck.pop_back();
+    // Getting the distance formula that the user entered.
     string distanceFormula = userVecCheck.back();
+    // Pop the distance formula that the user entered.
     userVecCheck.pop_back();
     // Checking if the k, distance formula and double vec are valid.
     if (!validKElements(kElement)

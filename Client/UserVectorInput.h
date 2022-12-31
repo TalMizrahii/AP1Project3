@@ -1,9 +1,7 @@
-//
-// Created by yuval on 12/30/22.
-//
 
 #ifndef EX3_USERVECTORINPUT_H
 #define EX3_USERVECTORINPUT_H
+
 #include <cstdlib>
 #include <vector>
 #include <string>
@@ -18,45 +16,18 @@ public:
     explicit UserVectorInput();
 
 
-
     // The Destructor of the class.
     ~UserVectorInput();
 
     // The function control all the flow of getting user input check it and make it ready to send.
-    void userInputFlow();
+    string userInputFlow();
 
 protected:
     // Getting the user input.
     vector<string> userInput();
 
+    // Recover the original user string input.
+    string recoverOriginalUserInput(vector<string> userVec1);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #endif //EX3_USERVECTORINPUT_H

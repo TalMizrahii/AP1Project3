@@ -1,7 +1,3 @@
-//
-// Created by yuval on 12/30/22.
-//
-
 #include "UserVectorInput.h"
 #include "sstream"
 
@@ -35,7 +31,7 @@ vector<string> UserVectorInput::userInput() {
 /**
  * Creating the user input as string vector checking it and make it ready to send.
  */
-void UserVectorInput::userInputFlow() {
+string UserVectorInput::userInputFlow() {
     ClientValidation validation;
     // Creating a vec from the user input using userInput function.
     vector<string> userVec = userInput();
@@ -44,7 +40,23 @@ void UserVectorInput::userInputFlow() {
         cout << "invalid input" << endl;
         userVec = userInput();
     }
-
-
-
+    // Recover the user input.
+    string originalUserInput = recoverOriginalUserInput(userVec);
+    return originalUserInput;
+}
+/**
+ * Recover the original user input.
+ * @param userVec1 vector of string.
+ */
+string UserVectorInput:: recoverOriginalUserInput(vector<string> userVec1){
+    // Getting the vec size.
+    unsigned long userVecLength = userVec1.size();
+    string originalInput;
+    // Concatenating the userVec to recover the original string input.
+    for (int i = 0; i < userVecLength ; i++) {
+        originalInput += userVec1[i] + " ";
+    }
+    // The last char is " " so we pop it.
+    originalInput.pop_back();
+    return  originalInput;
 }

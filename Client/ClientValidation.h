@@ -1,10 +1,5 @@
-//
-// Created by yuval on 12/30/22.
-//
-
 #ifndef EX3_CLIENTVALIDATION_H
 #define EX3_CLIENTVALIDATION_H
-
 
 
 #include <vector>
@@ -25,7 +20,7 @@ class ClientValidation {
 public:
 
     // Checking if a number is in scientific notation.
-    bool validD(const basic_string<char>& str);
+    bool validD(const basic_string<char> &str);
 
     // Checking if the ip is valid.
     bool validIp(const string &ip);
@@ -38,7 +33,6 @@ public:
 
     // Checking the full data the user entered.
     bool checkingUserInput(vector<string> userVecCheck);
-
 
 
 protected:
