@@ -43,8 +43,8 @@ vector<string> extract_argc(char *argcArray[]) {
 int main(int args, char *argv[]) {
     // Getting the argc and checking if valid.
     vector<string> argc_vector = extract_argc(argv);
-    string ipAddress = argc_vector[1];
-    int portNumber = stoi(argc_vector[2]);
+    string ipAddress = argc_vector[0];
+    int portNumber = stoi(argc_vector[1]);
     // Creating a ClientSocket object to run the program.
     ClientSocket client = ClientSocket(ipAddress,portNumber);
     // Run the client.
