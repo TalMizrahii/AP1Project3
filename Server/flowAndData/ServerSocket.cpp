@@ -117,6 +117,7 @@ int ServerSocket::setListen(int numOfListens, int serverSocket) {
         // If the set didn't work, rise an error.
         perror("Error listening to a socket.");
     }
+    return serverSocket;
 }
 
 /**
@@ -289,6 +290,9 @@ AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
         auto *min = new Minkowski();
         return min;
     }
+
+    auto *euc = new Euclidean();
+    return euc;
 }
 
 
