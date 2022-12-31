@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "ClientValidation.h"
+#include "ClientSocket.h"
 
 using namespace std;
 
@@ -16,9 +17,9 @@ using namespace std;
 vector<string> extract_argc(char *argcArray[]) {
     ClientValidation v;
     // As we know the argc[0] is the program name, and by the format argc[1] is the ip address.
-    string ip_address = argcArray[1];
+    string ip = argcArray[1];
     // Checking if the ip address legal.
-    if (!v.validIp(ip_address)){
+    if (!v.validIp(ip)){
         cout << "Illegal ip." << endl;
         exit(0);
     }
@@ -30,7 +31,7 @@ vector<string> extract_argc(char *argcArray[]) {
         exit(0);
     }
     vector<string> vector;
-    vector.push_back(ip_address);
+    vector.push_back(ip);
     vector.push_back(port);
     return vector;
 }
@@ -40,9 +41,14 @@ vector<string> extract_argc(char *argcArray[]) {
  * @return return 0 if the program run without issues.
  */
 int main(int args, char *argv[]) {
+    // Getting the argc and checking if valid.
     vector<string> argc_vector = extract_argc(argv);
-    string ip_address = argc_vector[1];
-    string port_number = argc_vector[2];
+    string ipAddress = argc_vector[1];
+    int portNumber = stoi(argc_vector[2]);
+    // Creating a ClientSocket object to run the program.
+    ClientSocket client = ClientSocket(ipAddress,portNumber);
+    // Run the client.
+    client.runClient();
 
     return 0;
 }

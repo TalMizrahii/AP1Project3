@@ -35,18 +35,23 @@ public:
     // Getter for the port number of the server.
     int getPort();
 
-    // Create a socket with the server details.
-    int creatClientSocket();
 
-    // Sending data to the server.
-    void sendToServer(int sock);
 
-    // Getting the server reply.
-    string receiveData(int clientSocket);
+    // Control the flow of receive and send to the sever.
+    void runClient();
 
 protected:
     // Create a socket.
     int makeNewSocket();
+
+    // Create a socket with the server details.
+    int creatClientSocket();
+
+    // Sending data to the server.
+    bool sendToServer(int sock);
+
+    // Getting the server reply.
+    string receiveData(int clientSocket);
 
     // Create the struct needed for creating a socket.
     sockaddr_in creatAddrInStruct();
@@ -56,6 +61,7 @@ private:
     string ip;
     int port;
     UserVectorInput userVectorInput;
+
 
 };
 

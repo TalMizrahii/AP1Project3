@@ -80,9 +80,13 @@ struct sockaddr_in ClientSocket::creatAddrInStruct() {
  * Send the user request to the server.
  * @param clientSocket The client's socket.
  */
-void ClientSocket::sendToServer(int sock) {
+bool ClientSocket::sendToServer(int sock) {
     // Getting the user request.
     string message = this->userVectorInput.userInputFlow();
+    // Checking if the user want to close the connection.
+    if (message == "-1"){
+        return false;
+    }
     // Making the buffer ready.
     const char *char_message = message.c_str();
     // Checking the buffer size.
@@ -93,6 +97,7 @@ void ClientSocket::sendToServer(int sock) {
     if (sentBytes < 0) {
         perror("error sending the message to the server");
     }
+    return true;
 }
 
 /**
@@ -116,13 +121,35 @@ string ClientSocket::receiveData(int clientSocket) {
     // Check for an empty message.
     if (readBytes == 0) {
         close(clientSocket);
-        return "The connection is close";
+        return "The server closed the connection";
     }
     // concatenating the server reply to a string.
     for (int i = 0; i < readBytes; i++) {
         serverReply += buffer[i];
     }
     return serverReply;
+}
+
+/**
+ * Control the flow of sending and receiving data from the client.
+ */
+void ClientSocket::runClient(){
+    // Create a new socket.
+    int clientSocket = creatClientSocket();
+    // We want to send a data to the server until the user want to close ot until the server close from his side.
+    while (true){
+        bool flag = sendToServer(clientSocket);
+        // Checking if the user want to close the socket.
+        if (!flag){
+            cout << "The client request to close the connection to the server!" << endl;
+            close(clientSocket);
+            exit(0);
+        }
+        // Getting the server reply.
+        string serverReply = receiveData(clientSocket);
+        // Print the server reply.
+        cout << serverReply << endl;
+    }
 }
 
 
