@@ -1,8 +1,6 @@
 #ifndef EX3_KNNALGORITHM_H
 #define EX3_KNNALGORITHM_H
 
-
-
 #include <cstdlib>
 #include <vector>
 #include <string>
@@ -25,7 +23,7 @@ public:
                           unsigned long k_neighbors, AbstractDistance *calculation);
 
     // Setter for catalogedVectors.
-    void setCataloged_vectors(vector<RelativeVector *> cataloged_vectors);
+    void setCatalogedVectors(vector<RelativeVector *> cataloged_vectors);
 
     // Setter for userVector.
     void setUserVector(vector<double> user_vector);
@@ -82,6 +80,5 @@ private:
     // The k neighbors we got as argument to the program.
     unsigned long kNeighbors;
 };
-
 
 #endif //EX3_KNNALGORITHM_H

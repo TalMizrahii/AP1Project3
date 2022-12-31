@@ -1,13 +1,6 @@
-#include <vector>
 #include <string>
 #include <iostream>
-#include <cstdlib>
 #include "flowAndData/FileReader.h"
-# include "Distances/Minkowski.h"
-# include "Distances/Euclidean.h"
-# include "Distances/Taxicab.h"
-# include "Distances/Canberra.h"
-# include "Distances/Chebyshev.h"
 #include "flowAndData/KnnAlgorithm.h"
 #include "flowAndData/ServerSocket.h"
 
@@ -35,15 +28,5 @@ int main(int args, char *argv[]) {
     int socketNum = serverSocket.creatServerSocket();
     // Run the server.
     serverSocket.runServer(socketNum);
-
-
-//    // #############################################################################
-//    // ALL BELOW I GET FROM THE SOCKET, DELETE!!!!
-//    string distance_algorithm = "MAN";
-//    vector<double> vector1 = {1, 2, 3, 4};
-//    int kNeighbors = 1;
-//    // #############################################################################
-
-
     return 0;
 }

@@ -1,5 +1,4 @@
 #include "KnnAlgorithm.h"
-#include "KnnAlgorithm.h"
 
 /**
  * A default destructor.
@@ -10,21 +9,21 @@ KnnAlgorithm::~KnnAlgorithm() = default;
  * A constructor for the class who receives a catalog vector, number k, and a calculation distance object.
  */
 KnnAlgorithm::KnnAlgorithm(vector<RelativeVector *> cataloged_vectors1,
-                           vector<double> user_vector1,
-                           unsigned long k_neighbors1,
+                           vector<double> userVector,
+                           unsigned long kNeighbors,
                            AbstractDistance *calculation) {
     // Calling the setters.
     seCalc(calculation);
-    setCataloged_vectors(std::move(cataloged_vectors1));
-    setUserVector(std::move(user_vector1));
-    setKNeighbors(k_neighbors1);
+    setCatalogedVectors(std::move(cataloged_vectors1));
+    setUserVector(std::move(userVector));
+    setKNeighbors(kNeighbors);
 }
 
 /**
  * Setter for cataloged_vectors.
  * @param catalogedVectors The vector of all RelativeVectors.
  */
-void KnnAlgorithm::setCataloged_vectors(vector<RelativeVector *> cataloged_vectors1) {
+void KnnAlgorithm::setCatalogedVectors(vector<RelativeVector *> cataloged_vectors1) {
     this->catalogedVectors = std::move(cataloged_vectors1);
 }
 
@@ -103,7 +102,7 @@ bool KnnAlgorithm::calculateDistances() {
     // This for loop calc the distance between userVector(user input) to all the cataloged vectors.
     for (int i = 0; i < getCatalogedVectors().size(); i++) {
         // Checking if the vectors in the same size.
-        if(!sizeComparison(getCatalogedVectors()[i]->getValuesVector(), getUserVector())){
+        if (!sizeComparison(getCatalogedVectors()[i]->getValuesVector(), getUserVector())) {
             return false;
         }
         // Set the result of the distance between the user's vector to the ith vector.
@@ -134,7 +133,7 @@ vector<RelativeVector *> KnnAlgorithm::sortingAndGettingK() {
     // Sort the array by the given compare function.
     sort(knn.begin(), knn.end(), compareRelativeVector);
     // Set the knn to the catalog vector.
-    setCataloged_vectors(knn);
+    setCatalogedVectors(knn);
     // Create a new vector.
     vector<RelativeVector *> kRelativeVectors;
     // Push to it the first k elements.
@@ -206,15 +205,18 @@ void KnnAlgorithm::destroyKnn() {
  */
 string KnnAlgorithm::classificationUserVec() {
     // Calculate all distances of vectors from the user's vector.
-    if(!calculateDistances()){
+    if (!calculateDistances()) {
         return "invalid input";
     }
     // Calculate the k nearest neighbors.
     vector<RelativeVector *> nearestK = sortingAndGettingK();
+    // Destroy the KNN vector.
+    destroyKnn();
     // Create a map from the knn.
     map<string, int> kMap = createMap(nearestK);
-    // Destroy the KNN vector.
-    // destroyKnn();
+    // Delete the calculation metric.
+    AbstractDistance *metric = getCalc();
+    delete metric;
     // Calculate the largest classification and return it.
     return extractClassification(kMap);
 }

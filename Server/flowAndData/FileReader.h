@@ -31,10 +31,6 @@ public:
     // Creating a relative vector from the strVec.
     RelativeVector *creatRelativeVector(vector<string> strVec);
 
-
-
-
 };
-
 
 #endif //EX3_FILEREADER_H

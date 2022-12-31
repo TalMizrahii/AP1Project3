@@ -1,4 +1,3 @@
-
 #include "FileReader.h"
 
 /**
@@ -31,7 +30,7 @@ vector<RelativeVector *> FileReader::readFile(string &path) {
         // Get the line from the file and put it in the fullVector.
         getline(myFile, fullVector);
         // Check if we detected an empty line and ignore it.
-        if(fullVector.empty()){
+        if (fullVector.empty()) {
             continue;
         }
         // Send the line to be processed, and receive back a new relative vector who represent the line.
@@ -54,7 +53,7 @@ vector<RelativeVector *> FileReader::readFile(string &path) {
  */
 RelativeVector *FileReader::creatRelativeVector(vector<string> strVec) {
     // Get the classification.
-    string classification  = strVec.back();
+    string classification = strVec.back();
     // Remove the classification from strVec, reminding only the numbers of the vector.
     strVec.pop_back();
     // Check the classification for last \r.
@@ -68,4 +67,3 @@ RelativeVector *FileReader::creatRelativeVector(vector<string> strVec) {
     dataVec->setValuesVector(numVec);
     return dataVec;
 }
-
