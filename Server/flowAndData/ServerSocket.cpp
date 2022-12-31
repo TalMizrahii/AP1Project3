@@ -66,7 +66,7 @@ int ServerSocket::creatServerSocket() {
     struct sockaddr_in sin = creatAddrInStruct();
     // Bind the struct with all data to the server's socket, check if the binding worked.
     serverSocket = bindSocket(serverSocket, sin);
-    serverSocket = setListen(5);
+    serverSocket = setListen(5, serverSocket);
     return serverSocket;
 }
 
@@ -136,57 +136,71 @@ int ServerSocket::makeNewSocket() {
  * @param serverSocket The int of the server's socket.
  */
 void ServerSocket::runServer(int serverSocket) {
+    // Run forever.
     while (true) {
-        // Create a struct for an incoming client.
-        struct sockaddr_in client_sin{};
-        // Set the size of the
-        unsigned int addr_len = sizeof(client_sin);
         // Accept a new client.
-        int clientSocket = accept(serverSocket, (struct sockaddr *) &client_sin, &addr_len);
-        // Check if the operation succeeded.
-        if (clientSocket < 0) {
-            // If it didn't work, rise an error.
-            perror("Error accepting client.");
-        }
-        // Initiate a buffer and it's size.
-        char buffer[4096];
-        // Set the data that the server can accept from a connection to the buffer's size.
-        int expected_data_len = sizeof(buffer);
-        // Receive data from the current client.
-        long readBytes = recv(clientSocket, buffer, expected_data_len, 0);
-        // Check if the "receive" method worked.
-        if (readBytes < 0) {
-            // If it didn't work, raise an error.
-            perror("Error receiving data.");
-        }
-            // Check for an empty message.
-        else if (readBytes == 0) {
-            // CLOSE >> ?
-        }
-        // Receive the data from the client.
-        string clientInfo(buffer);
+        int clientSocket = acceptClient(serverSocket);
+        // Receive data from the client's socket.
+        string clientInfo = receiveData(clientSocket);
         // Checking if the user wants to close the connection.
         if (endConnectionCheck(clientInfo)) {
             close(clientSocket);
             continue;
         }
 
-        // Check for closer of the socket.
-        // Function witch process HERE!!!!
-
-        // Send the processed data back to the client.
-        long sent_bytes = send(clientSocket, buffer, readBytes, 0);
-        // Check if the sending didn't work.
-        if (sent_bytes < 0) {
-            // If the sending didn't work, raise an error.
-            perror("Error sending data to client.");
-        }
+        // Do something with the data.
+        // Send it back.
     }
 }
 
-bool ServerSocket::endConnectionCheck(const string &strToCheck) {
-    if (strToCheck)
+/**
+ * Given a client socket, accept it's data on a TCP connection.
+ * @param clientSocket The client's socket.
+ * @return The data received.
+ */
+string ServerSocket::receiveData(int clientSocket) {
+    // Initiate a buffer and it's size.
+    char buffer[4096];
+    // Set the data that the server can accept from a connection to the buffer's size.
+    int expected_data_len = sizeof(buffer);
+    // Receive data from the current client.
+    long readBytes = recv(clientSocket, buffer, expected_data_len, 0);
+    // Check if the "receive" method worked.
+    if (readBytes < 0) {
+        // If it didn't work, raise an error.
+        perror("Error receiving data.");
+    }
+        // Check for an empty message.
+    else if (readBytes == 0) {
+        // CLOSE >> ?
+    }
+    return buffer;
 }
+
+/**
+ * Accept a new client.
+ * @param serverSocket The server's socket.
+ * @return a socket of a new  client.
+ */
+int ServerSocket::acceptClient(int serverSocket) {
+    // Create a struct for an incoming client.
+    struct sockaddr_in client_sin{};
+    // Set the size of the struct.
+    unsigned int addr_len = sizeof(client_sin);
+    // Accept a new client.
+    int clientSocket = accept(serverSocket, (struct sockaddr *) &client_sin, &addr_len);
+    // Check if the operation succeeded.
+    if (clientSocket < 0) {
+        // If it didn't work, rise an error.
+        perror("Error accepting client.");
+    }
+    return clientSocket;
+}
+
+
+
+
+
 
 
 

@@ -59,8 +59,16 @@ public:
     // Set a socket to listen to a specific number of clients.
     int setListen(int numOfListens, int serverSocket);
 
+    // Accepting a new client.
+    int acceptClient(int serverSocket);
+
+    // Accepting data from the client.
+    string receiveData(int clientSocket);
+
     // Running the server.
     void runServer(int serverSocket);
+
+
 
 private:
     // The current port number the socket is bind to.
