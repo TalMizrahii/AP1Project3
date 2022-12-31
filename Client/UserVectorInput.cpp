@@ -19,10 +19,17 @@ UserVectorInput::~UserVectorInput() = default;
  * @return userInputStringVec the user input.
  */
 vector<string> UserVectorInput::userInput() {
+    // Creat an input string.
     string input;
+    // Create a vector of strings.
     vector<string> userInputStringVec;
+    // Receive a full line from the user.
+    getline(cin, input);
+    // Set the input to stream.
+    istringstream line(input);
+    input = "";
     // Getting the user input without ' '.
-    while (getline(cin, input, ' ')) {
+    while (getline(line, input, ' ')) {
         userInputStringVec.push_back(input);
     }
     return userInputStringVec;
