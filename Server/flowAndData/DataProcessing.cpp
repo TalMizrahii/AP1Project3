@@ -20,7 +20,6 @@ vector<string> DataProcessing::catchDelim(const string &fullVector, char delim) 
     return strVec;
 }
 
-
 /**
  * Converting a vector of strings to a vector of doubles.
  * @param strVec The vector of strings.

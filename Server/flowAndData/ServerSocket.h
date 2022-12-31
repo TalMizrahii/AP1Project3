@@ -82,7 +82,7 @@ public:
     AbstractDistance *distanceCreator(const string &distanceSpec);
 
     //
-    void replyToClient(string reply);
+    void replyToClient(string reply, int clientSocket);
 
 private:
     // The current port number the socket is bind to.

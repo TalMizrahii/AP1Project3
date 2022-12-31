@@ -152,12 +152,22 @@ void ServerSocket::runServer(int serverSocket) {
             continue;
         }
         string reply = processRequest(buffer);
-        replyToClient()
+        replyToClient(reply, clientSocket);
     }
 }
 
-void ServerSocket::replyToClient(string reply) {
-
+/**
+ * Sending data to a given socket of a client.
+ * @param reply The data to send.
+ * @param clientSocket The client's socket to send to.
+ */
+void ServerSocket::replyToClient(string reply, int clientSocket) {
+    unsigned long lenMsg = reply.size();
+    const char *buffer = reply.c_str();
+    int sent_bytes = send(clientSocket, buffer, lenMsg, 0);
+    if (sent_bytes < 0) {
+        perror("error sending to client");
+    }
 }
 
 /**
@@ -268,5 +278,3 @@ AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
         return min;
     }
 }
-
-
