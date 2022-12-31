@@ -11,7 +11,7 @@ ServerSocket::~ServerSocket() = default;
 /**
  * A default Constructor setting default values to the port and path.
  */
-ServerSocket::ServerSocket() {
+ServerSocket::ServerSocket() : DataProcessing() {
     setPort(12345);
     setPath("/home/tal/Desktop/AP1/ex3/datasets/iris/iris_classified.csv");
 }
@@ -21,7 +21,7 @@ ServerSocket::ServerSocket() {
  * @param port A port number to bind to the socket.
  * @param path A path to a file database.
  */
-ServerSocket::ServerSocket(int port, string path) {
+ServerSocket::ServerSocket(int port, string path) : DataProcessing() {
     setPath(std::move(path));
     setPort(port);
 }

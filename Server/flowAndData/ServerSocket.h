@@ -6,11 +6,11 @@
 #include <utility>
 #include <iostream>
 #include <sys/socket.h>
-#include <stdio.h>
+#include <cstdio>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <string.h>
+#include <cstring>
 #include "DataProcessing.h"
 #include "../Distances/AbstractDistance.h"
 #include "../Distances/Minkowski.h"
