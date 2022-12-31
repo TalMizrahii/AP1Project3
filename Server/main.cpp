@@ -14,42 +14,6 @@
 using namespace std;
 
 /**
- * returning the distance object (on the heap) as the user specified.
- * @param distanceSpec The user's request.
- * @return The instance of the distance.
- */
-AbstractDistance *distanceCreator(const string &distanceSpec) {
-    // Return the Euclidean distance.
-    if (distanceSpec == "AUC") {
-        auto *euc = new Euclidean();
-        return euc;
-    }
-    // Return the Taxicab distance.
-    if (distanceSpec == "MAN") {
-        auto *man = new Taxicab();
-        return man;
-    }
-    // Return the Chebyshev distance.
-    if (distanceSpec == "CHB") {
-        auto *chb = new Chebyshev();
-        return chb;
-    }
-    // Return the Canberra distance.
-    if (distanceSpec == "CAN") {
-        auto *can = new Canberra();
-        return can;
-    }
-    // Return the Minkowski distance.
-    if (distanceSpec == "MIN") {
-        auto *min = new Minkowski();
-        return min;
-    }
-    // If no valid option was chosen, exit.
-    cout << "Illegal Format" << endl;
-    exit(-1);
-}
-
-/**
  * This is the main function of the program, creating 2 vectors and checking validation.
  * @return return 0 if the program run without issues.
  */
@@ -73,20 +37,13 @@ int main(int args, char *argv[]) {
     serverSocket.runServer(socketNum);
 
 
-
-
-
 //    // #############################################################################
 //    // ALL BELOW I GET FROM THE SOCKET, DELETE!!!!
 //    string distance_algorithm = "MAN";
 //    vector<double> vector1 = {1, 2, 3, 4};
 //    int kNeighbors = 1;
 //    // #############################################################################
-//    AbstractDistance *disCalc = distanceCreator(distance_algorithm);
-//    FileReader fileReader;
-//    vector<RelativeVector *> catalogedVec = fileReader.readFile(path);
-//    KnnAlgorithm kElement(catalogedVec, vector1, kNeighbors, disCalc);
-//    cout << kElement.classificationUserVec() << endl;
+
 
     return 0;
 }

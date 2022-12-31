@@ -1,4 +1,6 @@
 #include "ServerSocket.h"
+#include "FileReader.h"
+#include "KnnAlgorithm.h"
 
 
 /**
@@ -150,8 +152,12 @@ void ServerSocket::runServer(int serverSocket) {
             continue;
         }
         string reply = processRequest(buffer);
-
+        replyToClient()
     }
+}
+
+void ServerSocket::replyToClient(string reply) {
+
 }
 
 /**
@@ -193,8 +199,12 @@ int ServerSocket::acceptClient(int serverSocket) {
     return clientSocket;
 }
 
-
-string ServerSocket::processRequest(const string& buffer) {
+/**
+ * Processing the client's request and calculating the knn classification from the file database.
+ * @param buffer The full request from the client.
+ * @return if passed all validation, replies the classification of the vector. Otherwise, replies "invalid input".
+ */
+string ServerSocket::processRequest(const string &buffer) {
     // Processing the given string to vector.
     vector<string> strVec = catchDelim(buffer, ' ');
     // Extract the k element as a string.
@@ -205,12 +215,58 @@ string ServerSocket::processRequest(const string& buffer) {
     string metric = strVec.back();
     // remove it from the vector.
     strVec.pop_back();
-    if (!serverValidations.validI(kElementStr) || !serverValidations.validMetric(metric)){
+    if (!serverValidations.validI(kElementStr) || !serverValidations.validMetric(metric)) {
         return "invalid input";
     }
     // convert the kElement to int.
     int kNum = stoi(kElementStr);
-
-
+    // Creat a calculation metric.
+    AbstractDistance *disCalc = distanceCreator(metric);
+    // Convert the vector of strings to a vector of doubles.
+    vector<double> valuesVector = sTodVec(strVec);
+    // Get the path and set it to a temp variable.
+    string path = getPath();
+    // Create a fileReader.
+    FileReader fileReader;
+    // Read the file and receive the data as a Relative vector.
+    vector<RelativeVector *> catalogedVec = fileReader.readFile(path);
+    // Calculate the distance.
+    KnnAlgorithm kElement(catalogedVec, valuesVector, kNum, disCalc);
+    // Return the result.
+    return kElement.classificationUserVec();
 }
+
+/**
+ * returning the distance object (on the heap) as the user specified.
+ * @param distanceSpec The user's request.
+ * @return The instance of the distance.
+ */
+AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
+    // Return the Euclidean distance.
+    if (distanceSpec == "AUC") {
+        auto *euc = new Euclidean();
+        return euc;
+    }
+    // Return the Taxicab distance.
+    if (distanceSpec == "MAN") {
+        auto *man = new Taxicab();
+        return man;
+    }
+    // Return the Chebyshev distance.
+    if (distanceSpec == "CHB") {
+        auto *chb = new Chebyshev();
+        return chb;
+    }
+    // Return the Canberra distance.
+    if (distanceSpec == "CAN") {
+        auto *can = new Canberra();
+        return can;
+    }
+        // Return the Minkowski distance.
+    else if (distanceSpec == "MIN") {
+        auto *min = new Minkowski();
+        return min;
+    }
+}
+
 

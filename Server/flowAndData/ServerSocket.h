@@ -12,7 +12,12 @@
 #include <unistd.h>
 #include <string.h>
 #include "DataProcessing.h"
-#include "Distances"
+#include "../Distances/AbstractDistance.h"
+#include "../Distances/Minkowski.h"
+#include "../Distances/Taxicab.h"
+#include "../Distances/Chebyshev.h"
+#include "../Distances/Canberra.h"
+#include "../Distances/Euclidean.h"
 
 using namespace std;
 
@@ -73,6 +78,11 @@ public:
     // Processing the request of the client.
     string processRequest(const string& buffer);
 
+    // Creating a distance metric to calculate KNN.
+    AbstractDistance *distanceCreator(const string &distanceSpec);
+
+    //
+    void replyToClient(string reply);
 
 private:
     // The current port number the socket is bind to.
