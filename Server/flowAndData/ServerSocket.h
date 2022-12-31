@@ -47,6 +47,18 @@ public:
     // The central method of the class. Responsible to create and run the server's socket.
     int creatServerSocket();
 
+    // Creating a new socket.
+    int makeNewSocket();
+
+    // Creating a new sockaddr_in struct for the server.
+    struct sockaddr_in creatAddrInStruct();
+
+    // Binding a socket to a port number.
+    int bindSocket(int serverSocket, sockaddr_in sin);
+
+    // Set a socket to listen to a specific number of clients.
+    int setListen(int numOfListens, int serverSocket);
+
     // Running the server.
     void runServer(int serverSocket);
 

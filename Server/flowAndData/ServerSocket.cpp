@@ -61,14 +61,34 @@ int ServerSocket::getPort() {
  * @return The server's socket.
  */
 int ServerSocket::creatServerSocket() {
-    // Setting the current port number to a constant variable.
-    const int serverPort = getPort();
-    // Creat a new socket.
-    int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-    // If the creation didn't work, raise an error.
-    if (serverSocket < 0) {
+    // Create a new socket.
+    int serverSocket = makeNewSocket();
+    struct sockaddr_in sin = creatAddrInStruct();
+    // Bind the struct with all data to the server's socket, check if the binding worked.
+    serverSocket = bindSocket(serverSocket, sin);
+    serverSocket = setListen(5);
+    return serverSocket;
+}
+
+/**
+ * Binding a socket to a port number.
+ * @param port The port number to bind.
+ * @param sin The struct number to bind.
+ * @return the socket after binding.
+ */
+int ServerSocket::bindSocket(int serverSocket, sockaddr_in sin) {
+    if (bind(serverSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+        // If the binding didn't work, raise an error.
         perror("Error binding socket.");
     }
+    return serverSocket;
+}
+
+/**
+ * Creat a sockaddr_in for the server's socket.
+ * @return struct of sockaddr_in.
+ */
+struct sockaddr_in ServerSocket::creatAddrInStruct() {
     // Create a struct for the socket's data.
     struct sockaddr_in sin{};
     // Set values to it of it's size (in bytes).
@@ -77,17 +97,36 @@ int ServerSocket::creatServerSocket() {
     sin.sin_family = AF_INET;
     // Set the addresses values of the socket.
     sin.sin_addr.s_addr = INADDR_ANY;
+    // Get the current port.
+    const int serverPort = getPort();
     // Set the current port of the server to the struct.
     sin.sin_port = htons(serverPort);
-    // Bind the struct with all data to the server's socket, check if the binding worked.
-    if (bind(serverSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        // If the binding didn't work, raise an error.
-        perror("Error binding socket.");
-    }
+    return sin;
+}
+
+/**
+ * Setting a given socket to listen to a specific number of client.
+ * @param numOfListens The number of client to listen.
+ * @return The socket after setting.
+ */
+int ServerSocket::setListen(int numOfListens, int serverSocket) {
     // Set the socket to listen to only 5 client in a row.
-    if (listen(serverSocket, 5) < 0) {
+    if (listen(serverSocket, numOfListens) < 0) {
         // If the set didn't work, rise an error.
         perror("Error listening to a socket.");
+    }
+}
+
+/**
+ * Creating a new socket.
+ * @return An int representing a socket.
+ */
+int ServerSocket::makeNewSocket() {
+    // Creat a new socket.
+    int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+    // If the creation didn't work, raise an error.
+    if (serverSocket < 0) {
+        perror("Error binding socket.");
     }
     return serverSocket;
 }
@@ -148,5 +187,12 @@ void ServerSocket::runServer(int serverSocket) {
 bool ServerSocket::endConnectionCheck(const string &strToCheck) {
     if (strToCheck)
 }
+
+
+
+
+
+
+
 
 
