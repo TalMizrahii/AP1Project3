@@ -136,7 +136,7 @@ bool ClientValidation::validPortNumber(const string &port) {
         // From string to int.
         int port_num = stoi(port);
         // Checking if the port is in the valid range.
-        if (port_num < 1024 || port_num > 65535) {
+        if (port_num < 0 || port_num > 65535) {
             return false;
         }
         return true;
