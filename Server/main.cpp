@@ -75,8 +75,8 @@ int main(int args, char *argv[]) {
 
     // ALL BELOW I GET FROM THE SOCKET, DELETE!!!!
     string distance_algorithm = "MAN";
-    vector<double> vector1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-    int kNeighbors = 5;
+    vector<double> vector1 = {1, 2, 3, 4};
+    int kNeighbors = 1;
     // #############################################################################
 
     AbstractDistance *disCalc = distanceCreator(distance_algorithm);

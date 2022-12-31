@@ -37,7 +37,7 @@ public:
     void setKNeighbors(unsigned long k_neighbors);
 
     // Calculate the distances between the userVector to all cataloged vectors(classified vectors).
-    void calculateDistances();
+    bool calculateDistances();
 
     // Getter for kNeighbors.
     unsigned long getKNeighbors() const;
@@ -52,7 +52,7 @@ public:
     AbstractDistance *getCalc();
 
     // Check validation of the vectors.
-    void sizeComparison(const vector<double> &v1, const vector<double> &v2);
+    bool sizeComparison(const vector<double> &v1, const vector<double> &v2);
 
     // Extracting the largest classification from the map.
     string extractClassification(const map<string, int> &kMap);

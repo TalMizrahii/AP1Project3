@@ -18,7 +18,7 @@ FileReader::~FileReader() = default;
  */
 vector<RelativeVector *> FileReader::readFile(string &path) {
     // Validate if the path exist.
-    serverValidations.validPath(path);
+//    serverValidations.validPath(path);
     // Create a new stream to read from the file.
     fstream myFile;
     myFile.open(path);

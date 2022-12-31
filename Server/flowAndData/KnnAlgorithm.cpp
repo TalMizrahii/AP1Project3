@@ -85,32 +85,33 @@ AbstractDistance *KnnAlgorithm::getCalc() {
 }
 
 /**
- * The function check if the vectors we created have the same size.
- * @param v1 the vector we created from the user input.
- * @param v2 the vector we created from the user input.
+ * The function check if two vectors are equally sized.
+ * @param v1 The first vector.
+ * @param v2 The second vector.
+ * @return A boolean true if they are equally sized, false otherwise.
  */
-void KnnAlgorithm::sizeComparison(const vector<double> &v1, const vector<double> &v2) {
+bool KnnAlgorithm::sizeComparison(const vector<double> &v1, const vector<double> &v2) {
     // Checking if the vectors have the same size.
-    if (v1.size() != v2.size()) {
-        cout << "Illegal format - Vector not equally sized." << endl;
-        exception e;
-        throw e;
-    }
+    return (v1.size() == v2.size());
 }
 
 /**
  * Calculate the distance between all vectors to the userVector and set them the result.
+ * @return true if the calculation worked, false otherwise.
  */
-void KnnAlgorithm::calculateDistances() {
+bool KnnAlgorithm::calculateDistances() {
     // This for loop calc the distance between userVector(user input) to all the cataloged vectors.
     for (int i = 0; i < getCatalogedVectors().size(); i++) {
         // Checking if the vectors in the same size.
-        sizeComparison(getCatalogedVectors()[i]->getValuesVector(), getUserVector());
+        if(!sizeComparison(getCatalogedVectors()[i]->getValuesVector(), getUserVector())){
+            return false;
+        }
         // Set the result of the distance between the user's vector to the ith vector.
         double result = getCalc()->calculateDistance(getCatalogedVectors()[i]->getValuesVector(), getUserVector());
         // Set the result to the ith vector.
         getCatalogedVectors()[i]->setDistanceFromRelativeVec(result);
     }
+    return true;
 }
 
 /**
@@ -205,7 +206,9 @@ void KnnAlgorithm::destroyKnn() {
  */
 string KnnAlgorithm::classificationUserVec() {
     // Calculate all distances of vectors from the user's vector.
-    calculateDistances();
+    if(!calculateDistances()){
+        return "invalid input";
+    }
     // Calculate the k nearest neighbors.
     vector<RelativeVector *> nearestK = sortingAndGettingK();
     // Create a map from the knn.
