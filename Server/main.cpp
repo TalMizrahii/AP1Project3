@@ -79,6 +79,8 @@ int main(int args, char *argv[]) {
     int kNeighbors = 1;
     // #############################################################################
 
+
+
     AbstractDistance *disCalc = distanceCreator(distance_algorithm);
     FileReader fileReader;
     vector<RelativeVector *> catalogedVec = fileReader.readFile(path);

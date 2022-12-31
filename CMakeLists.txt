@@ -25,5 +25,7 @@ add_executable(ex3
         Server/Distances/Canberra.h
         Server/Distances/Chebyshev.cpp
         Server/Distances/Chebyshev.h
+        Server/flowAndData/ServerSocket.cpp
+        Server/flowAndData/ServerSocket.h
 
         )
