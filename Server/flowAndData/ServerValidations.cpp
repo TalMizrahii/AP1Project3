@@ -90,6 +90,7 @@ bool ServerValidations::validI(const std::string &strNum) {
     return true;
 }
 
+
 /**
  * Checking if a string is a valid port number.
  * @param port The string to check.
