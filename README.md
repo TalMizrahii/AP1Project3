@@ -19,55 +19,40 @@
 
 ## Description
 
-The task is to get two vectors from the user and to calculate different distances between them.
+*The final project seats in the "main" branch!*
 
-The Distances are:
+In this program, we asked to calculate the [KNN](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) (K nearest neighbors) to a given vector.
 
-* [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance)
+The program receives 3 arguments:
+* 1. The number K for the KNN algorithm.
+* 2. The path to the database (explained later).
+* 3. The distance calculation was wanted to be used in the KNN algorithm.
+  
+The third argument (The distance calculation) is interpreted as:
+  * MUN - [Taxicab geometry](https://en.wikipedia.org/wiki/Taxicab_geometry)
+  * AUC - [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance)
+  * CHB - [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance)
+  * CAN - [Canberra distance](https://en.wikipedia.org/wiki/Canberra_distance)
+  * MIN - [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance)
+  
+  
+ We use a given database named "datasets", containing .cvs files. each row in a file represents a vector of doubles. The last cell in the row represents the classification of the vector. 
 
-![image](https://user-images.githubusercontent.com/103560553/202403137-049e516b-ac15-4e21-abbc-bf4f465a83bf.png)
+We created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN using a hash map and returned the resulting classification.
+
+At the beginning of the program, the user needs to enter a vector that he wants to classify. This vector has a format, and if the user doesn't follow it the program will print "Illegal format" and will shut down the program. If the program won't find the .csv file, it will print "NO FILE" and will also shut down. 
 
 
-* [Taxicab geometry](https://en.wikipedia.org/wiki/Taxicab_geometry)
-
-![image](https://user-images.githubusercontent.com/103560553/202403477-4c2885df-8eee-4721-897b-dee4e95c4ed0.png)
-
-
-* [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance)
-
-![image](https://user-images.githubusercontent.com/103560553/202403736-3438755a-f128-46a9-8f55-4b1cf69a215f.png)
-
-
-* [Canberra distance](https://en.wikipedia.org/wiki/Canberra_distance)
-
-![image](https://user-images.githubusercontent.com/103560553/202403909-432f6285-c7cb-4a78-b9e7-a0b6b837c455.png)
-
-
-* [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance)
-
-![image](https://user-images.githubusercontent.com/103560553/202404050-595c6cba-1b98-42ba-868c-c2c28586d6e4.png)
 
 ## Implementation
-The input to the program is received by the user from the keyboard. After that, the input is passed to a validation check, which accept:
-
-* Only doubles or integers.
-* Negative or positive numbers.
-* The vectors must be equally sized.
-* No special characters allowed.
-
-For example, (0, -1.1, 2) and (1, 2, 3) is a valid input, but (a, 3, 4) and (1., .1, 5, 3) is not (not equally sized and contain illegal characters).
-
-In the main.cpp file, we used the "iostream libary" to get the user input as a stream (string).
-  Then we use several integrity checks to validate the string, if the string does not pass the integrity checks, we print an eror massage and close the program.
-Assume we pass all the tests, then we "push" the valid string into double vector. 
-
-Additionally, two out of the five distance function uses the Minkowski distance, because:
-* taxicabDistance = minkowskiDistance(P = 1)
-* euclideanDistance = minkowskiDistance(P = 2)
-
-We used the minkowskiDistance to receive P=2.
-
-The Distances class contains all calculations regard to the algorithms, in addition to the print function, which presents the result of each calculation according to the order specified above.
+  
+  The code is divided to two main attributes - Distances and ControlAndData.
+  
+  ### ControlAndData
+  The control and data directory contain the FileReader class, responsible to extract the data from the database to a vector of RelativeVector members. It uses the Validation class to make sure that all data extracted is valid and no errors occur during the extraction. It also contains the Knnalgorithm class to calculate the result using hash map for better preformance.
+  
+  ### Distances
+  The distances class is composed of the 5 distance calculations mentioned above. All of those classes inherit from the AbstractDistance class, containing the "calculateDistance" method. The reason for that is to make the code compatible for change of the metric during run time.
 
 ## Dependencies
 
@@ -80,27 +65,31 @@ To clone and run this application, you'll need [Git](https://git-scm.com) instal
 
 ```bash
 # Clone this repository.
-$ git clone https://github.com/TalMizrahii/AP1Project
+$ git clone https://github.com/TalMizrahii/AP1Project2
 
 # Go into the repository.
-$ cd AP1Project
+$ cd AP1Project2
 
 # Compile using makefile.
 $ make
 ```
-
+  you can choose which data file to run:
+  
 ```bash
-# Run the program on Linux:
-$ ./a.out
+# Run iris
+$ make run-iris
 ```
-
 ```bash
-# Run the program on Windows:
-$ a.out
+# Run wine
+$ make run-wine
 ```
-
-```bash
-# After running, clean all unnecessary files.
+  ```bash
+# Run beans
+$ make run-beans
+```
+  To clean the .exe/out file:
+  ```bash
+# clean
 $ make clean
 ```
 
