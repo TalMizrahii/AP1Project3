@@ -144,6 +144,8 @@ void ServerSocket::runServer(int serverSocket) {
     while (true) {
         // Accept a new client.
         int clientSocket = acceptClient(serverSocket);
+        // DELETE!!!!
+        cout << "new client: " << clientSocket << endl;
         // A while loop to get endless requests from a client as long as the message he sends isn't -1.
         while (true) {
             // Creat a buffer to receive data from the client.
@@ -242,7 +244,7 @@ string ServerSocket::processRequest(const string &buffer) {
     // remove it from the vector.
     strVec.pop_back();
     if (!serverValidations.validI(kElementStr) || !serverValidations.validMetric(metric)) {
-        return "invalid input";
+        return "invalid input - ##";
     }
     // convert the kElement to int.
     int kNum = stoi(kElementStr);
@@ -288,11 +290,14 @@ AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
         auto *can = new Canberra();
         return can;
     }
-        // Return the Minkowski distance.
-    else if (distanceSpec == "MIN") {
+    // Return the Minkowski distance.
+    if (distanceSpec == "MIN") {
         auto *min = new Minkowski();
         return min;
     }
+    // Set a default metric to return.
+    auto *euc = new Euclidean();
+    return euc;
 }
 
 

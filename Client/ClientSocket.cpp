@@ -39,7 +39,7 @@ int ClientSocket::creatClientSocket() {
     int clientSocket = makeNewSocket();
     struct sockaddr_in sin = creatAddrInStruct();
     if (connect(clientSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        perror("error connecting to server");
+        perror("Error connecting to server.");
     }
     return clientSocket;
 }
@@ -144,6 +144,7 @@ void ClientSocket::runClient() {
         bool flag = sendToServer(clientSocket);
         // Checking if the user want to close the socket.
         if (!flag) {
+            // DELETE!!!!!
             cout << "The client request to close the connection to the server!" << endl;
             close(clientSocket);
             exit(0);
