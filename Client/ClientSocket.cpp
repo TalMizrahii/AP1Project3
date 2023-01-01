@@ -1,6 +1,5 @@
 
 #include "ClientSocket.h"
-
 #include <utility>
 
 
@@ -61,8 +60,8 @@ int ClientSocket::creatClientSocket() {
     // Creating a struct address for the socket.
     struct sockaddr_in sin = creatAddrInStruct();
     // Connecting to the server.
-    if (connect(clientSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        perror("error connecting to server");
+    if (connect(clientSocket, (struct sockaddr *) &sin, sizeof(sin)) < ZERO_FLAG) {
+        perror("Error connecting to server");
         exit(0);
     }
     return clientSocket;
@@ -76,7 +75,7 @@ int ClientSocket::makeNewSocket() {
     // Creat a new socket.
     int clientSocket = socket(AF_INET, SOCK_STREAM, 0);
     // If the creation didn't work, raise an error.
-    if (clientSocket < 0) {
+    if (clientSocket < ZERO_FLAG) {
         perror("Error binding socket.");
         exit(0);
     }
@@ -122,8 +121,8 @@ bool ClientSocket::sendToServer(int sock) {
     // Sending the data to the server.
     int sentBytes = send(sock, char_message, data_len, 0);
     // Checking if it sent correctly.
-    if (sentBytes < 0) {
-        perror("error sending the message to the server");
+    if (sentBytes < ZERO_FLAG) {
+        perror("Error sending the message to the server");
         exit(0);
     }
     return true;
@@ -138,7 +137,7 @@ long ClientSocket::receiveData(int clientSocket, char *buffer, int expectedDataL
     // Receive data from the current client.
     long readBytes = recv(clientSocket, buffer, expectedDataLen, 0);
     // Check if the "receive" method worked.
-    if (readBytes < 0) {
+    if (readBytes < ZERO_FLAG) {
         // If it didn't work, raise an error.
         perror("Error receiving data.");
         exit(0);
@@ -157,11 +156,9 @@ void ClientSocket::runClient() {
         bool flag = sendToServer(clientSocket);
         // Checking if the user want to close the socket.
         if (!flag) {
-            cout << "The client request to close the connection to the server!" << endl;
             close(clientSocket);
             exit(0);
         }
-
         // Creating a new clear buffer.
         char buffer[4096];
         for (char &i: buffer) {

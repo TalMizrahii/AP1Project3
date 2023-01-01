@@ -2,11 +2,13 @@
 #ifndef EX3_USERVECTORINPUT_H
 #define EX3_USERVECTORINPUT_H
 
+
 #include <cstdlib>
 #include <vector>
 #include <string>
 #include "ClientValidation.h"
 #include "sstream"
+
 
 using namespace std;
 

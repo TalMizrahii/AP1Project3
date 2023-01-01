@@ -2,6 +2,7 @@
 
 #ifndef EX3_CLIENTSOCKET_H
 #define EX3_CLIENTSOCKET_H
+#define ZERO_FLAG 0
 
 #include <cstring>
 #include "UserVectorInput.h"
@@ -61,11 +62,12 @@ protected:
 
 
 private:
+    // The ip address of the server.
     string ip;
+    // The port number of the server.
     int port;
+    // The vector input instance creator.
     UserVectorInput userVectorInput;
-
-
 };
 
 #endif //EX3_CLIENTSOCKET_H

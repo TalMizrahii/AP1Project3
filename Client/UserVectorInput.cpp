@@ -1,7 +1,6 @@
 #include "UserVectorInput.h"
 
 
-
 /**
  * A default constructor.
  */
@@ -51,19 +50,20 @@ string UserVectorInput::userInputFlow() {
     string originalUserInput = recoverOriginalUserInput(userVec);
     return originalUserInput;
 }
+
 /**
  * Recover the original user input.
  * @param userVec1 vector of string.
  */
-string UserVectorInput:: recoverOriginalUserInput(vector<string> userVec1){
+string UserVectorInput::recoverOriginalUserInput(vector<string> userVec1) {
     // Getting the vec size.
     unsigned long userVecLength = userVec1.size();
     string originalInput;
     // Concatenating the userVec to recover the original string input.
-    for (int i = 0; i < userVecLength ; i++) {
+    for (int i = 0; i < userVecLength; i++) {
         originalInput += userVec1[i] + " ";
     }
     // The last char is " " so we pop it.
     originalInput.pop_back();
-    return  originalInput;
+    return originalInput;
 }
