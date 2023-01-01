@@ -157,7 +157,7 @@ void ClientSocket::runClient() {
         // Checking if the user want to close the socket.
         if (!flag) {
             close(clientSocket);
-            exit(0);
+            return;
         }
         // Creating a new clear buffer.
         char buffer[4096];
