@@ -29,4 +29,12 @@ add_executable(ex3
         Server/flowAndData/FileReader.cpp
         Server/flowAndData/FileReader.h
         Server/main.cpp
+
+        Client/main.cpp
+        Client/ClientValidation.cpp
+        Client/ClientValidation.h
+        Client/ClientSocket.cpp
+        Client/ClientSocket.h
+        Client/UserVectorInput.cpp
+        Client/UserVectorInput.h
         )

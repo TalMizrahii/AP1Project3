@@ -74,7 +74,7 @@ bool ClientValidation::validKElements(const string &k_elements) {
         return false;
     }
     int k = stoi(k_elements);
-    if (k < 0) {
+    if (k <= 0) {
         return false;
     }
     return true;
