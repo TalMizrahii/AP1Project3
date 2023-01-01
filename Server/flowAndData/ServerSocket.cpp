@@ -287,4 +287,7 @@ AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
         auto *min = new Minkowski();
         return min;
     }
+    // A default solution.
+    auto *euc = new Euclidean();
+    return euc;
 }
