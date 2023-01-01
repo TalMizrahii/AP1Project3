@@ -206,7 +206,7 @@ void KnnAlgorithm::destroyKnn() {
 string KnnAlgorithm::classificationUserVec() {
     // Calculate all distances of vectors from the user's vector.
     if (!calculateDistances()) {
-        return "invalid input - $";
+        return "invalid input";
     }
     // Calculate the k nearest neighbors.
     vector<RelativeVector *> nearestK = sortingAndGettingK();

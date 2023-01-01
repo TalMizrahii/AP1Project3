@@ -26,6 +26,7 @@ add_executable(ex3
         Server/Distances/Minkowski.h
         Server/Distances/Taxicab.cpp
         Server/Distances/Taxicab.h
-
-        Client/main.cpp Client/ClientValidation.h Client/ClientValidation.cpp Client/UserVectorInput.h
-        Client/UserVectorInput.cpp Client/ClientSocket.h Client/ClientSocket.cpp Server/main.cpp Server/flowAndData/FileReader.cpp Server/flowAndData/FileReader.h)
+        Server/flowAndData/FileReader.cpp
+        Server/flowAndData/FileReader.h
+        Server/main.cpp
+        )

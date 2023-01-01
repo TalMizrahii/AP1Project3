@@ -150,6 +150,10 @@ void ServerSocket::runServer(int serverSocket) {
         while (true) {
             // Creat a buffer to receive data from the client.
             char buffer[4096];
+            // Clean the buffer.
+            for(char & i : buffer){
+                i = 0;
+            }
             // Get the size of the buffer.
             long expectedDataLen = sizeof(buffer);
             // Receive data from the client's socket.
@@ -165,6 +169,7 @@ void ServerSocket::runServer(int serverSocket) {
         }
     }
 }
+
 
 /**
  * Sending data to a given socket of a client.
@@ -244,7 +249,7 @@ string ServerSocket::processRequest(const string &buffer) {
     // remove it from the vector.
     strVec.pop_back();
     if (!serverValidations.validI(kElementStr) || !serverValidations.validMetric(metric)) {
-        return "invalid input - ##";
+        return "invalid input";
     }
     // convert the kElement to int.
     int kNum = stoi(kElementStr);
@@ -299,5 +304,3 @@ AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
     auto *euc = new Euclidean();
     return euc;
 }
-
-

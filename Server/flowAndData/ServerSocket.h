@@ -81,7 +81,7 @@ public:
     // Creating a distance metric to calculate KNN.
     AbstractDistance *distanceCreator(const string &distanceSpec);
 
-    //
+    // Reply function to the client.
     void replyToClient(string reply, int clientSocket);
 
 private:
