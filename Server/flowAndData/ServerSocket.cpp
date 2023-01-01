@@ -145,8 +145,6 @@ void ServerSocket::runServer(int serverSocket) {
     while (true) {
         // Accept a new client.
         int clientSocket = acceptClient(serverSocket);
-        // DELETE!!!!
-        cout << "new client: " << clientSocket << endl;
         // A while loop to get endless requests from a client as long as the message he sends isn't -1.
         while (true) {
             // Creat a buffer to receive data from the client.
