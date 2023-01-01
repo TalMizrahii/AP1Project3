@@ -70,6 +70,7 @@ int ServerSocket::creatServerSocket() {
     serverSocket = bindSocket(serverSocket, sin);
     serverSocket = setListen(5, serverSocket);
     return serverSocket;
+
 }
 
 /**
@@ -145,8 +146,9 @@ void ServerSocket::runServer(int serverSocket) {
         int clientSocket = acceptClient(serverSocket);
         // Creat a buffer to receive data from the client.
         char buffer[4096];
+        long expectedDataLen = sizeof(buffer);
         // Receive data from the client's socket.
-        long readBytes = receiveData(clientSocket, buffer);
+        long readBytes = receiveData(clientSocket, buffer, expectedDataLen);
         // Check for an empty message or if the user wants to close the connection.
         if (readBytes == 0 || endConnectionCheck(buffer)) {
             close(clientSocket);
@@ -177,10 +179,7 @@ void ServerSocket::replyToClient(string reply, int clientSocket) {
  * @return A boolean value to the question.
  */
 bool ServerSocket::endConnectionCheck(const string &strToCheck) {
-    if (strToCheck.find("-1") != std::string::npos) {
-        return true;
-    }
-    return false;
+    return (strToCheck == "-1");
 }
 
 /**
@@ -189,17 +188,14 @@ bool ServerSocket::endConnectionCheck(const string &strToCheck) {
  * @param buffer The buffer to store the reply.
  * @return The number of bytes received in the buffer.
  */
-long ServerSocket::receiveData(int clientSocket, char *buffer) {
-    // Set the data that the server can accept from a connection to the buffer's size.
-    int expected_data_len = sizeof(buffer);
+long ServerSocket::receiveData(int clientSocket, char *buffer, long expectedDataLen) {
     // Receive data from the current client.
-    long readBytes = recv(clientSocket, buffer, expected_data_len, 0);
+    long readBytes = recv(clientSocket, buffer, expectedDataLen, 0);
     // Check if the "receive" method worked.
     if (readBytes < 0) {
         // If it didn't work, raise an error.
         perror("Error receiving data.");
     }
-    cout << buffer << endl;
     return readBytes;
 }
 
@@ -291,9 +287,4 @@ AbstractDistance *ServerSocket::distanceCreator(const string &distanceSpec) {
         auto *min = new Minkowski();
         return min;
     }
-
-    auto *euc = new Euclidean();
-    return euc;
 }
-
-
