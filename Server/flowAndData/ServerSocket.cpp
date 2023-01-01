@@ -144,18 +144,23 @@ void ServerSocket::runServer(int serverSocket) {
     while (true) {
         // Accept a new client.
         int clientSocket = acceptClient(serverSocket);
-        // Creat a buffer to receive data from the client.
-        char buffer[4096];
-        long expectedDataLen = sizeof(buffer);
-        // Receive data from the client's socket.
-        long readBytes = receiveData(clientSocket, buffer, expectedDataLen);
-        // Check for an empty message or if the user wants to close the connection.
-        if (readBytes == 0 || endConnectionCheck(buffer)) {
-            close(clientSocket);
-            continue;
+        // A while loop to get endless requests from a client as long as the message he sends isn't -1.
+        while (true) {
+            // Creat a buffer to receive data from the client.
+            char buffer[4096];
+            // Get the size of the buffer.
+            long expectedDataLen = sizeof(buffer);
+            // Receive data from the client's socket.
+            long readBytes = receiveData(clientSocket, buffer, expectedDataLen);
+            // Check for an empty message or if the user wants to close the connection.
+            if (readBytes == 0 || endConnectionCheck(buffer)) {
+                // If he does, close his socket and accept another client.
+                close(clientSocket);
+                break;
+            }
+            string reply = processRequest(buffer);
+            replyToClient(reply, clientSocket);
         }
-        string reply = processRequest(buffer);
-        replyToClient(reply, clientSocket);
     }
 }
 
