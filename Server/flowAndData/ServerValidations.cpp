@@ -128,3 +128,19 @@ bool ServerValidations::validMetric(string metric) {
     return false;
 }
 
+/**
+ * Checking validations for the K element.
+ * @param strNum the string representing the k element.
+ * @return a boolean answer to the question.
+ */
+bool ServerValidations::validK(const string &strNum) {
+    if (!validI(strNum)) {
+        return false;
+    }
+    int kElement = stoi(strNum);
+    if (kElement <= 0) {
+        return false;
+    }
+    return true;
+}
+

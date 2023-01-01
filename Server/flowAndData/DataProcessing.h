@@ -12,6 +12,9 @@
 
 using namespace std;
 
+/**
+ * A code sharing class to process data and strings.
+ */
 class DataProcessing {
 public:
 

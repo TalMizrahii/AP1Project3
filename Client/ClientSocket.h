@@ -13,18 +13,19 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+
 using namespace std;
 
 class ClientSocket {
 public:
     // The constructor of the class.
-    explicit ClientSocket(string ip1, int portNumber);
+    explicit ClientSocket(string ipAddress, int portNumber);
 
     // The Destructor of the class.
     ~ClientSocket();
 
     // Setter for the ip of the server.
-    void setIp(string ip1);
+    void setIp(string ipAddress);
 
     // Setter for the port number of the server.
     void setPort(int portNumber);
@@ -34,7 +35,6 @@ public:
 
     // Getter for the port number of the server.
     int getPort();
-
 
 
     // Control the flow of receive and send to the sever.
@@ -51,10 +51,13 @@ protected:
     bool sendToServer(int sock);
 
     // Getting the server reply.
-    string receiveData(int clientSocket);
+    long receiveData(int clientSocket, char *buffer, int expectedDataLen);
 
     // Create the struct needed for creating a socket.
     sockaddr_in creatAddrInStruct();
+
+    // Concatenating a char* to a string.
+    string creatString(char *buffer, long readBytes);
 
 
 private:

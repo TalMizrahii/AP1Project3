@@ -9,23 +9,44 @@
  */
 ClientSocket::~ClientSocket() = default;
 
-ClientSocket::ClientSocket(string ip1, int portNumber) {
-    setIp(std::move(ip1));
+/**
+ * A constructor for the Client's socket.
+ * @param ipAddress The ip number of the server to connect.
+ * @param portNumber The port number of the server to connect.
+ */
+ClientSocket::ClientSocket(string ipAddress, int portNumber) {
+    setIp(std::move(ipAddress));
     setPort(portNumber);
 }
 
-void ClientSocket::setIp(string ip1) {
-    this->ip = std::move(ip1);
+/**
+ * A setter for the ip of the server to connect.
+ * @param ipAddress The ip number of the server.
+ */
+void ClientSocket::setIp(string ipAddress) {
+    this->ip = std::move(ipAddress);
 }
 
+/**
+ * A setter for the server's number.
+ * @param portNumber The server's port number.
+ */
 void ClientSocket::setPort(int portNumber) {
     this->port = portNumber;
 }
 
+/**
+ * A getter for the server's ip address.
+ * @return The ip of the server.
+ */
 string ClientSocket::getIp() {
     return this->ip;
 }
 
+/**
+ * A getter for the server's port number.
+ * @return The server's port number.
+ */
 int ClientSocket::getPort() {
     return this->port;
 }
@@ -37,9 +58,12 @@ int ClientSocket::getPort() {
 int ClientSocket::creatClientSocket() {
     // Create a new socket.
     int clientSocket = makeNewSocket();
+    // Creating a struct address for the socket.
     struct sockaddr_in sin = creatAddrInStruct();
+    // Connecting to the server.
     if (connect(clientSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
         perror("error connecting to server");
+        exit(0);
     }
     return clientSocket;
 }
@@ -54,6 +78,7 @@ int ClientSocket::makeNewSocket() {
     // If the creation didn't work, raise an error.
     if (clientSocket < 0) {
         perror("Error binding socket.");
+        exit(0);
     }
     return clientSocket;
 }
@@ -99,38 +124,26 @@ bool ClientSocket::sendToServer(int sock) {
     // Checking if it sent correctly.
     if (sentBytes < 0) {
         perror("error sending the message to the server");
+        exit(0);
     }
     return true;
 }
 
 /**
- * Recieved the data from the server.
+ * Received the data from the server.
  * @param clientSocket The client's socket.
  * @return The server reply.
  */
-string ClientSocket::receiveData(int clientSocket) {
-    // Declaration of the buffer and the serverReply.
-    string serverReply;
-    char buffer[4096];
-    // Set the data that the server can accept from a connection to the buffer's size.
-    int expected_data_len = sizeof(buffer);
+long ClientSocket::receiveData(int clientSocket, char *buffer, int expectedDataLen) {
     // Receive data from the current client.
-    long readBytes = recv(clientSocket, buffer, expected_data_len, 0);
+    long readBytes = recv(clientSocket, buffer, expectedDataLen, 0);
     // Check if the "receive" method worked.
     if (readBytes < 0) {
         // If it didn't work, raise an error.
         perror("Error receiving data.");
+        exit(0);
     }
-    // Check for an empty message.
-    if (readBytes == 0) {
-        close(clientSocket);
-        return "The server closed the connection";
-    }
-    // concatenating the server reply to a string.
-    for (int i = 0; i < readBytes; i++) {
-        serverReply += buffer[i];
-    }
-    return serverReply;
+    return readBytes;
 }
 
 /**
@@ -148,14 +161,40 @@ void ClientSocket::runClient() {
             close(clientSocket);
             exit(0);
         }
+
+        // Creating a new clear buffer.
+        char buffer[4096];
+        for (char &i: buffer) {
+            i = 0;
+        }
+        // Set the data that the server can accept from a connection to the buffer's size.
+        int expectedDataLen = sizeof(buffer);
         // Getting the server reply.
-        string serverReply = receiveData(clientSocket);
+        long numOfBytes = receiveData(clientSocket, buffer, expectedDataLen);
+        // Check if the number of bytes is 0.
+        if (!numOfBytes) {
+            // If it is, close the socket.
+            close(clientSocket);
+            return;
+        }
+        // Declaration of the buffer and the serverReply.
+        string serverReply = creatString(buffer, numOfBytes);
         // Print the server reply.
         cout << serverReply << endl;
     }
 }
 
-
-
-
-
+/**
+ * Concatenating a char* to a string.
+ * @param buffer The char*
+ * @param readBytes The length of the char*.
+ * @return the string representing the char*.
+ */
+string ClientSocket::creatString(char *buffer, long readBytes) {
+    string serverReply;
+    // concatenating the server reply to a string.
+    for (int i = 0; i < readBytes; i++) {
+        serverReply += buffer[i];
+    }
+    return serverReply;
+}

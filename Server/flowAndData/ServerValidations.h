@@ -31,6 +31,9 @@ public:
     // Checking if a sting is a number.
     bool validI(const std::string &strNum);
 
+    // Checking if the K element is valid.
+    bool validK(const std::string &strNum);
+
     // Check if a strung is a valid port or not.
     bool validPortNumber(const string &port);
 

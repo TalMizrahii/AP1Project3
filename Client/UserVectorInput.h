@@ -6,15 +6,17 @@
 #include <vector>
 #include <string>
 #include "ClientValidation.h"
+#include "sstream"
 
 using namespace std;
 
-
+/**
+ * Receiving a vector from the user and checking it's validation.
+ */
 class UserVectorInput {
 public:
     // The default constructor of the class.
     explicit UserVectorInput();
-
 
     // The Destructor of the class.
     ~UserVectorInput();

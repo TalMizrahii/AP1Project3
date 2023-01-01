@@ -1,6 +1,5 @@
 #include <vector>
 #include <string>
-#include <iostream>
 #include <cstdlib>
 #include "ClientValidation.h"
 #include "ClientSocket.h"
@@ -20,14 +19,14 @@ vector<string> extract_argc(char *argcArray[]) {
     string ip = argcArray[1];
     // Checking if the ip address legal.
     if (!v.validIp(ip)){
-        cout << "Illegal ip." << endl;
+        perror("Illegal IP.");
         exit(0);
     }
     // As we know the argc[0] is the program name, and by the format argc[2] is the port.
     string port = argcArray[2];
     // Checking if the port number legal.
     if (!v.validPortNumber(port)){
-        cout << "Illegal port." << endl;
+        perror("Illegal port.");
         exit(0);
     }
     vector<string> vector;

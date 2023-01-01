@@ -12,7 +12,7 @@ ServerSocket::~ServerSocket() = default;
  * A default Constructor setting default values to the port and path.
  */
 ServerSocket::ServerSocket() : DataProcessing() {
-    setPort(12345);
+    setPort(DEFAULT_PORT);
     setPath("/home/tal/Desktop/AP1/ex3/datasets/iris/iris_classified.csv");
 }
 
@@ -68,7 +68,8 @@ int ServerSocket::creatServerSocket() {
     struct sockaddr_in sin = creatAddrInStruct();
     // Bind the struct with all data to the server's socket, check if the binding worked.
     serverSocket = bindSocket(serverSocket, sin);
-    serverSocket = setListen(5, serverSocket);
+    // Set the server to listen to a specific number of client's.
+    serverSocket = setListen(CLIENTS_TO_LISTEN, serverSocket);
     return serverSocket;
 
 }
@@ -80,9 +81,10 @@ int ServerSocket::creatServerSocket() {
  * @return the socket after binding.
  */
 int ServerSocket::bindSocket(int serverSocket, sockaddr_in sin) {
-    if (bind(serverSocket, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+    if (bind(serverSocket, (struct sockaddr *) &sin, sizeof(sin)) < ZERO_FLAG) {
         // If the binding didn't work, raise an error.
         perror("Error binding socket.");
+        exit(0);
     }
     return serverSocket;
 }
@@ -114,9 +116,10 @@ struct sockaddr_in ServerSocket::creatAddrInStruct() {
  */
 int ServerSocket::setListen(int numOfListens, int serverSocket) {
     // Set the socket to listen to only 5 client in a row.
-    if (listen(serverSocket, numOfListens) < 0) {
+    if (listen(serverSocket, numOfListens) < ZERO_FLAG) {
         // If the set didn't work, rise an error.
         perror("Error listening to a socket.");
+        exit(0);
     }
     return serverSocket;
 }
@@ -129,8 +132,9 @@ int ServerSocket::makeNewSocket() {
     // Creat a new socket.
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
     // If the creation didn't work, raise an error.
-    if (serverSocket < 0) {
+    if (serverSocket < ZERO_FLAG) {
         perror("Error binding socket.");
+        exit(0);
     }
     return serverSocket;
 }
@@ -179,8 +183,9 @@ void ServerSocket::replyToClient(string reply, int clientSocket) {
     unsigned long lenMsg = reply.size();
     const char *buffer = reply.c_str();
     int sent_bytes = send(clientSocket, buffer, lenMsg, 0);
-    if (sent_bytes < 0) {
+    if (sent_bytes < ZERO_FLAG) {
         perror("error sending to client");
+        exit(0);
     }
 }
 
@@ -204,9 +209,10 @@ long ServerSocket::receiveData(int clientSocket, char *buffer, long expectedData
     // Receive data from the current client.
     long readBytes = recv(clientSocket, buffer, expectedDataLen, 0);
     // Check if the "receive" method worked.
-    if (readBytes < 0) {
+    if (readBytes < ZERO_FLAG) {
         // If it didn't work, raise an error.
         perror("Error receiving data.");
+        exit(0);
     }
     return readBytes;
 }
@@ -224,9 +230,10 @@ int ServerSocket::acceptClient(int serverSocket) {
     // Accept a new client.
     int clientSocket = accept(serverSocket, (struct sockaddr *) &client_sin, &addr_len);
     // Check if the operation succeeded.
-    if (clientSocket < 0) {
+    if (clientSocket < ZERO_FLAG) {
         // If it didn't work, rise an error.
         perror("Error accepting client.");
+        exit(0);
     }
     return clientSocket;
 }
@@ -247,7 +254,7 @@ string ServerSocket::processRequest(const string &buffer) {
     string metric = strVec.back();
     // remove it from the vector.
     strVec.pop_back();
-    if (!serverValidations.validI(kElementStr) || !serverValidations.validMetric(metric)) {
+    if (!serverValidations.validK(kElementStr) || !serverValidations.validMetric(metric)) {
         return "invalid input";
     }
     // convert the kElement to int.
@@ -269,7 +276,7 @@ string ServerSocket::processRequest(const string &buffer) {
 }
 
 /**
- * returning the distance object (on the heap) as the user specified.
+ * Returning the distance object (on the heap) as the user specified.
  * @param distanceSpec The user's request.
  * @return The instance of the distance.
  */

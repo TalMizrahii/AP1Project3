@@ -14,7 +14,7 @@ using namespace std;
 
 
 /**
- * A validation class for vectors.
+ * A validation class for the client.
  */
 class ClientValidation {
 public:

@@ -19,12 +19,16 @@
 #include "../Distances/Canberra.h"
 #include "../Distances/Euclidean.h"
 
+#define CLIENTS_TO_LISTEN 5
+#define DEFAULT_PORT 12345
+#define ZERO_FLAG 0
+
 using namespace std;
 
 /**
- *
+ * A class of server's socket. contains all methods and relevant data about the socket.
  */
-class ServerSocket: public DataProcessing{
+class ServerSocket : public DataProcessing {
 public:
 
     // A default destructor.
@@ -76,7 +80,7 @@ public:
     void runServer(int serverSocket);
 
     // Processing the request of the client.
-    string processRequest(const string& buffer);
+    string processRequest(const string &buffer);
 
     // Creating a distance metric to calculate KNN.
     AbstractDistance *distanceCreator(const string &distanceSpec);
