@@ -178,6 +178,7 @@ void ServerSocket::replyToClient(string reply, int clientSocket) {
     }
 }
 
+
 /**
  * Check if the user wants to close the socket by sending the message "-1".
  * @param strToCheck The message to check.
