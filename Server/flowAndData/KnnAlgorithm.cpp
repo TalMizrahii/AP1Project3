@@ -210,10 +210,10 @@ string KnnAlgorithm::classificationUserVec() {
     }
     // Calculate the k nearest neighbors.
     vector<RelativeVector *> nearestK = sortingAndGettingK();
-    // Destroy the KNN vector.
-    destroyKnn();
     // Create a map from the knn.
     map<string, int> kMap = createMap(nearestK);
+    // Destroy the KNN vector.
+    destroyKnn();
     // Delete the calculation metric.
     AbstractDistance *metric = getCalc();
     delete metric;

@@ -14,6 +14,18 @@ add_executable(ex3
         Server/flowAndData/ServerSocket.h
         Server/flowAndData/ServerValidations.cpp
         Server/flowAndData/ServerValidations.h
+        Server/Distances/AbstractDistance.cpp
+        Server/Distances/AbstractDistance.h
+        Server/Distances/Canberra.cpp
+        Server/Distances/Canberra.h
+        Server/Distances/Chebyshev.cpp
+        Server/Distances/Chebyshev.h
+        Server/Distances/Euclidean.cpp
+        Server/Distances/Euclidean.h
+        Server/Distances/Minkowski.cpp
+        Server/Distances/Minkowski.h
+        Server/Distances/Taxicab.cpp
+        Server/Distances/Taxicab.h
 
         Client/main.cpp Client/ClientValidation.h Client/ClientValidation.cpp Client/UserVectorInput.h
         Client/UserVectorInput.cpp Client/ClientSocket.h Client/ClientSocket.cpp Server/main.cpp Server/flowAndData/FileReader.cpp Server/flowAndData/FileReader.h)
