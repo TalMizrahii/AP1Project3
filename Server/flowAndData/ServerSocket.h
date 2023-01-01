@@ -70,7 +70,7 @@ public:
     int acceptClient(int serverSocket);
 
     // Accepting data from the client.
-    long receiveData(int clientSocket, char *buffer);
+    long receiveData(int clientSocket, char *buffer, long expectedDataLen);
 
     // Running the server.
     void runServer(int serverSocket);

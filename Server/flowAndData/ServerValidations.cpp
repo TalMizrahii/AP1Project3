@@ -12,8 +12,6 @@ bool ServerValidations::validPath(const string &path) {
     myFile.open(path);
     // If the file wouldn't open, print an error message and return.
     if (!myFile) {
-        std::cout << "NO FILE" << endl;
-        exit(-1); // Exit the program.
         return false;
     }
     // If the file opened, close it.
