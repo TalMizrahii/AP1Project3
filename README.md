@@ -76,7 +76,7 @@ Distances contains classes represents every different calculation can be praform
 
 In the flowAndData, we created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN in the KnnAlgorithm class using a hash map and returned the resulting classification. To acces the database, we use the FileReader class, witch inherets from the DataProcessing class, to read and extract the data to a vector of RelativeVectors.
 
-All socket activity, run and creation is made in the ServerSocket class. It also inherets from the DataProcessing class to use its methods of processing data.
+All socket activity, run and creation is made in the ServerSocket class. It also inherets from the DataProcessing class to use its methods of processing data. It also contains a member of type ServerValidation, to validate the data received from the client's socket.
 
 ## Dependencies
 
