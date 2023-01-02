@@ -65,13 +65,18 @@ The servre calculates the KNN and returns the classification to the client's soc
   
 ### client
 
-The client uses the 
+  If the port number received as a system argument is not valid (negative or larger than 65,553) the program will close. Same as the port number, if the IP address is not a valid ip the program also will close.
+  
+The client uses the UserVectorInput class to get an input from the user. All socket activity is made in the ClientSocket class, and the validations are made using the ClientValidations class.
 
 ### Server
+The server contains two directories, Distances and flowAndData.
+  
+Distances contains classes represents every different calculation can be praformd in the knn algorithm. It also contains the AbstarctDistances class, used for polymorphism between the calculations.
 
-We created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN using a hash map and returned the resulting classification.
+In the flowAndData, we created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN in the KnnAlgorithm class using a hash map and returned the resulting classification. To acces the database, we use the FileReader class, witch inherets from the DataProcessing class, to read and extract the data to a vector of RelativeVectors.
 
-At the beginning of the program, the user needs to enter a vector that he wants to classify. This vector has a format, and if the user doesn't follow it the program will print "Illegal format" and will shut down the program. If the program won't find the .csv file, it will print "NO FILE" and will also shut down. 
+All socket activity, run and creation is made in the ServerSocket class. It also inherets from the DataProcessing class to use its methods of processing data.
 
 ## Dependencies
 
