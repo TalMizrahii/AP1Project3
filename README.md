@@ -21,38 +21,57 @@
 
 *The final project seats in the "main" branch!*
 
-In this program, we asked to calculate the [KNN](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) (K nearest neighbors) to a given vector.
+In this program, we implemented a TCP server and client. The client sends to the server a message contains a vector, calculation function and a number K. The server calculate the KNN from a given database (explained later), and returns the classification of vector by this database.
 
-The program receives 3 arguments:
-* 1. The number K for the KNN algorithm.
-* 2. The path to the database (explained later).
-* 3. The distance calculation was wanted to be used in the KNN algorithm.
+### The Client
+
+The client recievs two system arguments:
+ * The IP address of the server.
+ * The port number the server uses.
+ 
+ Afetr that, the client asks the user to enter a vector (same sized as the vectors in the server's database), a metric calculation function and a number K for the KNN calculation. If the client enters "-1" he closes the socket.
+ 
+ The client sends the message to the server and prints the reply.
+ 
+### The Server
+
+The server recievs two system arguments:
+ * A path the a file database, contains classifeid vectors in a CSV file.
+ * The port number to use (needs to be an unused port number).
+ 
+We use a given database named "datasets", containing .cvs files. Each row in a file represents a vector of doubles. The last cell in the row represents the classification of the vector. 
   
-The third argument (The distance calculation) is interpreted as:
+The server sets it's socket to listen to 5 clients at most.
+
+He processes the message from the client to 3 elements (by this order):
+
+* 1. The vector - must be same size as the vectors in the database.
+* 2. The distance calculation was wanted to be used in the KNN algorithm.
+* 3. The number K for the KNN algorithm.
+
+The second argument (The distance calculation) is interpreted as:
   * MUN - [Taxicab geometry](https://en.wikipedia.org/wiki/Taxicab_geometry)
   * AUC - [Euclidean distance](https://en.wikipedia.org/wiki/Euclidean_distance)
   * CHB - [Chebyshev distance](https://en.wikipedia.org/wiki/Chebyshev_distance)
   * CAN - [Canberra distance](https://en.wikipedia.org/wiki/Canberra_distance)
   * MIN - [Minkowski distance](https://en.wikipedia.org/wiki/Minkowski_distance)
   
-  
- We use a given database named "datasets", containing .cvs files. each row in a file represents a vector of doubles. The last cell in the row represents the classification of the vector. 
+The third argument, the KNN, must be a positive number. If the K is larger then the number of vectors in the file, the algorithm will calaulate the maximum vectors he can from the database.
 
-We created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN using a hash map and returned the resulting classification.
-
-At the beginning of the program, the user needs to enter a vector that he wants to classify. This vector has a format, and if the user doesn't follow it the program will print "Illegal format" and will shut down the program. If the program won't find the .csv file, it will print "NO FILE" and will also shut down. 
-
+The servre calculates the KNN and returns the classification to the client's socket. After that, the server waits to a new message from the client. If the client sends "-1", the server will close the client's socket and accept a new client. If the client sends any invalid message (not by format, invalid metric, etc), the server will reply "invalid message".
 
 
 ## Implementation
   
-  The code is divided to two main attributes - Distances and ControlAndData.
-  
-  ### ControlAndData
-  The control and data directory contain the FileReader class, responsible to extract the data from the database to a vector of RelativeVector members. It uses the Validation class to make sure that all data extracted is valid and no errors occur during the extraction. It also contains the Knnalgorithm class to calculate the result using hash map for better preformance.
-  
-  ### Distances
-  The distances class is composed of the 5 distance calculations mentioned above. All of those classes inherit from the AbstractDistance class, containing the "calculateDistance" method. The reason for that is to make the code compatible for change of the metric during run time.
+### client
+
+The client uses the 
+
+### Server
+
+We created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN using a hash map and returned the resulting classification.
+
+At the beginning of the program, the user needs to enter a vector that he wants to classify. This vector has a format, and if the user doesn't follow it the program will print "Illegal format" and will shut down the program. If the program won't find the .csv file, it will print "NO FILE" and will also shut down. 
 
 ## Dependencies
 
