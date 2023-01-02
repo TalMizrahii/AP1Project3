@@ -32,7 +32,11 @@ The client recievs two system arguments:
  Afetr that, the client asks the user to enter a vector (same sized as the vectors in the server's database), a metric calculation function and a number K for the KNN calculation. If the client enters "-1" he closes the socket.
  
  The client sends the message to the server and prints the reply.
- 
+  
+  A run example, client prespective:
+  
+ <img width="365" alt="client" src="https://user-images.githubusercontent.com/103560553/210224395-24624769-ac11-4ade-bfb9-f1584748a5ec.PNG">
+
 ### The Server
 
 The server recievs two system arguments:
@@ -59,6 +63,10 @@ The second argument (The distance calculation) is interpreted as:
 The third argument, the KNN, must be a positive number. If the K is larger then the number of vectors in the file, the algorithm will calaulate the maximum vectors he can from the database.
 
 The servre calculates the KNN and returns the classification to the client's socket. After that, the server waits to a new message from the client. If the client sends "-1", the server will close the client's socket and accept a new client. If the client sends any invalid message (not by format, invalid metric, etc), the server will reply "invalid message".
+  
+  A run example, server prespective:
+  
+<img width="367" alt="server" src="https://user-images.githubusercontent.com/103560553/210224382-9ade1708-43f9-436c-b2b4-22ab6cf80fb0.PNG">
 
 
 ## Implementation
