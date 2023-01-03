@@ -94,7 +94,7 @@ All socket activity, run, and creation is made in the ServerSocket class. It als
 
 ## Installing And Executing
 
-To clone and run this application, you'll need [Git](https://git-scm.com) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) installed on your computer. From your command line (running on localhost and port number 12345 - change if necessary):
 
 ```bash
 # Clone this repository.
