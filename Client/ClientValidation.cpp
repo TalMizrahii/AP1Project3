@@ -153,7 +153,7 @@ bool ClientValidation::validPortNumber(const string &port) {
  */
 bool ClientValidation::checkingUserInput(vector<string> userVecCheck) {
     // Checking if the user didn't enter anything.
-    if (userVecCheck.empty()) {
+    if (userVecCheck.empty() || userVecCheck.size() < 3) {
         return false;
     }
     // Checking if the user entered only -1 to close the connection.
