@@ -97,31 +97,39 @@ To clone and run this application, you'll need [Git](https://git-scm.com) instal
 
 ```bash
 # Clone this repository.
-$ git clone https://github.com/TalMizrahii/AP1Project2
+$ git clone https://github.com/TalMizrahii/AP1Project3
 
 # Go into the repository.
-$ cd AP1Project2
+$ cd AP1Project3
 
 # Compile using makefile.
 $ make
 ```
-  you can choose which data file to run:
+  This command will create two .out files; server.out and client.out.
   
 ```bash
-# Run iris
-$ make run-iris
+# To run the server with default iris database:
+$ make run-server
 ```
+To run the server with specific database:
+
 ```bash
 # Run wine
 $ make run-wine
 ```
-  ```bash
+
+```bash
 # Run beans
 $ make run-beans
 ```
-  To clean the .exe/out file:
-  ```bash
-# clean
+
+```bash
+# To run the client:
+$ make run-client
+```
+
+```bash
+# To clean the .out files:
 $ make clean
 ```
 
