@@ -177,6 +177,7 @@ bool ClientValidation::checkingUserInput(vector<string> userVecCheck) {
     return true;
 }
 
+
 /**
  * Checking if the user double input is in valid format.
  * @param user double input.
