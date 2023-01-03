@@ -123,9 +123,10 @@ $ make run-wine
 # Run beans
 $ make run-beans
 ```
-
+  
+To run the client:
+  
 ```bash
-# To run the client:
 $ make run-client
 ```
 
