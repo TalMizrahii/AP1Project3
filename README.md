@@ -129,8 +129,9 @@ $ make run-beans
 $ make run-client
 ```
 
+To clean the .out files:
+
 ```bash
-# To clean the .out files:
 $ make clean
 ```
 
