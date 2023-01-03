@@ -20,36 +20,37 @@
 ## Description
 
 *The final project seats in the "main" branch!*
-
-In this program, we implemented a TCP server and client. The client sends to the server a message contains a vector, calculation function and a number K. The server calculate the KNN from a given database (explained later), and returns the classification of vector by this database.
+  
+In this program, we implemented a TCP server and client. The client sends to the server a message containing a vector, calculation function, and a number K. The server calculates the KNN from a given database (explained later) and returns the classification of the vector by this database.
 
 ### The Client
 
-The client recievs two system arguments:
+The client receives two system arguments:
  * The IP address of the server.
  * The port number the server uses.
  
- Afetr that, the client asks the user to enter a vector (same sized as the vectors in the server's database), a metric calculation function and a number K for the KNN calculation. If the client enters "-1" he closes the socket.
+After that, the client asks the user to enter a vector (the same sized as the vectors in the server's database), a metric calculation function, and a number K for the KNN calculation. If the client enters "-1" he closes the socket.
  
- The client sends the message to the server and prints the reply.
+The client sends the message to the server and prints the reply.
   
-  A run example, client prespective:
+A run example, client perspective:
   
  <img width="365" alt="client" src="https://user-images.githubusercontent.com/103560553/210224395-24624769-ac11-4ade-bfb9-f1584748a5ec.PNG">
 
 ### The Server
 
-The server recievs two system arguments:
- * A path the a file database, contains classifeid vectors in a CSV file.
+The server receives two system arguments:
+  
+ * A path to the file database contains classified vectors in a CSV file.
  * The port number to use (needs to be an unused port number).
  
 We use a given database named "datasets", containing .cvs files. Each row in a file represents a vector of doubles. The last cell in the row represents the classification of the vector. 
   
-The server sets it's socket to listen to 5 clients at most.
+The server sets its socket to listen to 5 clients at most.
 
-He processes the message from the client to 3 elements (by this order):
+He processes the message from the client into 3 elements (in this order):
 
-* 1. The vector - must be same size as the vectors in the database.
+* 1. The vector - must be the same size as the vectors in the database.
 * 2. The distance calculation was wanted to be used in the KNN algorithm.
 * 3. The number K for the KNN algorithm.
 
@@ -62,9 +63,9 @@ The second argument (The distance calculation) is interpreted as:
   
 The third argument, the KNN, must be a positive number. If the K is larger then the number of vectors in the file, the algorithm will calaulate the maximum vectors he can from the database.
 
-The servre calculates the KNN and returns the classification to the client's socket. After that, the server waits to a new message from the client. If the client sends "-1", the server will close the client's socket and accept a new client. If the client sends any invalid message (not by format, invalid metric, etc), the server will reply "invalid input".
+The server calculates the KNN and returns the classification to the client's socket. After that, the server waits for a new message from the client. If the client sends "-1", the server will close the client's socket and accept a new client. If the client sends any invalid message (not by format, invalid metric, etc), the server will reply with "invalid input".
   
-  A run example, server prespective:
+A run example, server perspective:
   
 <img width="367" alt="server" src="https://user-images.githubusercontent.com/103560553/210224382-9ade1708-43f9-436c-b2b4-22ab6cf80fb0.PNG">
 
@@ -73,18 +74,18 @@ The servre calculates the KNN and returns the classification to the client's soc
   
 ### client
 
-  If the port number received as a system argument is not valid (negative or larger than 65,553) the program will close. Same as the port number, if the IP address is not a valid ip the program also will close.
+If the port number received as a system argument is not valid (negative or larger than 65,553) the program will close. Same as the port number, if the IP address is not a valid IP the program also will close.
   
-The client uses the UserVectorInput class to get an input from the user. All socket activity is made in the ClientSocket class, and the validations are made using the ClientValidations class.
+The client uses the UserVectorInput class to get input from the user. All socket activity is made in the ClientSocket class, and the validations are made using the ClientValidations class.
 
 ### Server
-The server contains two directories, Distances and flowAndData.
+The server contains two directories, Distances, and flowAndData.
   
-Distances contains classes represents every different calculation can be praformd in the knn algorithm. It also contains the AbstarctDistances class, used for polymorphism between the calculations.
+Distances contain classes that represent every different calculation that can be performed in the KNN algorithm. It also contains the AbstarctDistances class, used for polymorphism between the calculations.
 
-In the flowAndData, we created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN in the KnnAlgorithm class using a hash map and returned the resulting classification. To acces the database, we use the FileReader class, witch inherets from the DataProcessing class, to read and extract the data to a vector of RelativeVectors.
+In the flowAndData, we created a RelativeVector class, which contains the vector of doubles and the classification for each row. We calculated the KNN in the KnnAlgorithm class using a hash map and returned the resulting classification. To access the database, we use the FileReader class, which inherits from the DataProcessing class, to read and extract the data to a vector of RelativeVectors.
 
-All socket activity, run and creation is made in the ServerSocket class. It also inherets from the DataProcessing class to use its methods of processing data. It also contains a member of type ServerValidation, to validate the data received from the client's socket.
+All socket activity, run, and creation is made in the ServerSocket class. It also inherits from the DataProcessing class to use its methods of processing data. It also contains a member of type ServerValidation, to validate the data received from the client's socket.
 
 ## Dependencies
 
